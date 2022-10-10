@@ -1,0 +1,5 @@
+a.out
+n_puzzle
+src/*.o
+test/*
+.DS_Store
