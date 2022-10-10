@@ -37,12 +37,16 @@ void	Taquin::generate_goal_board()
 	int					next_flag;
 	
 	this->goal_board.assign(limit, 0);
+	this->goal_board_xy.resize(limit);//xy
 	check.assign(limit, 0);
 
 	for (int i = 1; i < limit; i++)
 	{
 		check[y * this->size + x] = 1;
 		goal_board[y * this->size + x] = i;
+
+		goal_board_xy[i] = std::make_pair(x, y);
+
 
 		next_flag = 0;
 		tmp_x = x + move_x;
@@ -61,10 +65,40 @@ void	Taquin::generate_goal_board()
 		x = tmp_x;
 		y = tmp_y;
 	}
+	// set 0
+	goal_board_xy[0] = std::make_pair(x, y);
+}	
+
+
+int		Taquin::calculate_w(Node *node) 
+{
+	//TODO メモ化
+
+	int		i;
+	int		limit = this->size * this->size;
+	int		num;
+	int		target_x;
+	int		target_y;
+	int		dist = 0;
+
+	for (int y = 0; y < this->size; y++)
+	{
+		for (int x = 0; x < this->size; x++)
+		{
+			num = node->board[y * this->size + x];
+			target_x = this->goal_board_xy[num].first;
+			target_y = this->goal_board_xy[num].second;
+			dist += abs(target_x - x) + abs(target_y - y);
+		}
+	}
+	return dist;
 }
 
 void	Taquin::expansion()
 {
+	std::cout << "\n--- Taquin::expansion ---\n" << std::endl;
+	
+
 	
 }
 
@@ -81,6 +115,7 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	tmp_node.board = _board;
 	tmp_node.hash = this->zh.generate_hash(_board);
 	tmp_node.n = 0;
+	tmp_node.w = this->calculate_w(&tmp_node);
 
 	open_queue.push(tmp_node);
 	while (!open_queue.empty())

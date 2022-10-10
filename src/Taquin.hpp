@@ -14,6 +14,7 @@ class	Taquin
 		int								size;
 
 		std::vector<int>				goal_board;
+		std::vector<std::pair<int, int> >	goal_board_xy;
 	
 	public:
 		ZobristHash						zh;
@@ -28,6 +29,7 @@ class	Taquin
 		void	expansion();
 
 		void	generate_goal_board();
+		int		calculate_w(Node *node);
 };
 
 #endif
