@@ -30,6 +30,9 @@ class	Taquin
 
 		void	generate_goal_board();
 		int		calculate_w(Node *node);
+
+		//Taquin_board
+		void	show_board(std::vector<int> &baord);
 };
 
 #endif

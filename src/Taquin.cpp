@@ -98,7 +98,7 @@ void	Taquin::expansion()
 {
 	std::cout << "\n--- Taquin::expansion ---\n" << std::endl;
 	
-
+	show_board(this->current->board);
 	
 }
 
