@@ -13,8 +13,8 @@ class	Node
 		std::vector<int>	board;
 		int					empty_x;
 		int					empty_y;
-		unsigned int		parent_node_hash;
-		unsigned int		hash;
+		long long			parent_node_hash;
+		long long			hash;
 
 	public:
 		void show()
