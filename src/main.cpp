@@ -3,6 +3,8 @@
 #include "ParseData.hpp"
 #include "Taquin.hpp"
 
+int		g_heuristics_type;
+
 void	n_puzzle(char *file_name)
 {
 	ReadFile	reader;
@@ -21,6 +23,8 @@ int		main(int argc, char *argv[])
 {
 	std::cout << "--- n_puzzle ---" << std::endl;
 	
+	//check args
+	g_heuristics_type = SEARCH_MANHATTAN_DISTANCE;
 	if (argc != 2)
 		return 0;
 	n_puzzle(argv[1]);

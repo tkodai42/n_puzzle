@@ -3,6 +3,7 @@
 
 #include "Node.hpp"
 #include "ZobristHash.hpp"
+#include "utils.hpp"
 
 class	Taquin
 {
@@ -33,6 +34,12 @@ class	Taquin
 
 		//Taquin_board
 		void	show_board(std::vector<int> &baord);
+
+		//Taquin_heuristics
+		int		evaluation();	
+		int		heuristics_manhattan_distance();
+		int		heuristics_improved_manhattan_distance();
+		int		heuristics_correct_number_of_pieces();
 };
 
 #endif

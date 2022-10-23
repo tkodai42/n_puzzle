@@ -13,7 +13,16 @@
 #define	NOMAL_STATE	0
 #define ERROR_OPEN	2
 
+#define	SEARCH_MANHATTAN_DISTANCE			0
+#define	SEARCH_IMPROVED_MANHATTAN_DISTANCE	1
+#define	SEARCH_CORRECT_NUMBER_OF_PIECES		2
+#define	SEARCH_BOGO							3
+
+#define	SEARCH_UNIFORM_COST					4
+#define	SEARCH_GREEDY						5
+
 extern int g_debug;
+extern int g_hueristics_type;
 
 #define	DEBUG_FUNCTION	0
 #define DEBUG_MESSAGE	1

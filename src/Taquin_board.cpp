@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/21 18:15:41 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:31:52 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 void	Taquin::show_board(std::vector<int> &board)
 {
 	show_message("show_board", DEBUG_FUNCTION);	
-	
+
+	std::cout << evaluation() << std::endl;
+
 	int size = sqrt(board.size());
 	int	num;
 	int display_width;

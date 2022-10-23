@@ -112,6 +112,7 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 	Node tmp_node;
 
+	this->current = &tmp_node;
 	tmp_node.board = _board;
 	tmp_node.hash = this->zh.generate_hash(_board);
 	tmp_node.n = 0;

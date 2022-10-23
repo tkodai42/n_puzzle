@@ -1,6 +1,7 @@
 #include "utils.hpp"
 
 int		g_debug = 1;
+int		g_hueristics_type;
 
 void	show_message(const char *message, int flag = 0)
 {

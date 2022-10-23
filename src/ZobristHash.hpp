@@ -39,7 +39,7 @@ class	ZobristHash
 			{
 				for (int x = 0; x < hand_num; x++)
 				{
-					//this->zobrist_table[y * board_len + x] = ((long long)rand() << 30) + rand();
+					//this->zobrist_table[y * board_len + x] = ((long long)rand() << 32) + rand();
 					this->zobrist_table[y * board_len + x] = xor128();
 				}
 			}
