@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 19:56:09 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 22:27:07 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)
 {
-	show_message("show_board", DEBUG_FUNCTION);		
+	//show_message("show_board", DEBUG_FUNCTION);		
 
 	if (node)
 	{
@@ -53,5 +53,31 @@ void	Taquin::show_board(std::vector<int> &board, Node *node)
 				std::cout << "[" << COUT_RED << std::setw(display_width) << num << COUT_END << "]"; 
 		}
 		std::cout << std::endl;
+	}
+}
+
+void	Taquin::show_path(Node *node)
+{
+	std::vector<int>	path_id;
+	int					current_id = node->id;
+	int					current_hash = node->hash;
+
+	while (current_id != 0)
+	{
+		path_id.push_back(current_id);
+		current_id = node_vec[current_id].parent_id;
+	}
+	path_id.push_back(current_id);
+
+	std::vector<int>::reverse_iterator	r_it = path_id.rbegin();
+	std::vector<int>::reverse_iterator	r_ite = path_id.rend();
+
+	Node	tmp;
+
+	for (int i = 0; r_it != r_ite; r_it++, i++)
+	{
+		std::cout << " >>> " << i << " <<< " << std::endl;
+		tmp = node_vec[*r_it];
+		show_board(tmp.board, &tmp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:57:18 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 22:13:15 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	Taquin::move_empty(int mx, int my)
 
 			new_node = node_vec[index];
 			new_node.n = this->current->n;
-			new_node.parent_node_hash = this->current->parent_node_hash;
+			new_node.parent_id = this->current->parent_id;
 			new_node.isOpen = 1;
 			this->evaluation(&new_node);
 			
@@ -116,6 +116,7 @@ void	Taquin::move_empty(int mx, int my)
 				std::cout << open_pque.size() << std::endl;
 				std::cout << node_vec.size() << std::endl;
 				show_board(new_node.board, &new_node);
+				show_path(&new_node);
 				exit(0);
 			}
 
@@ -146,6 +147,7 @@ void	Taquin::move_empty(int mx, int my)
 			std::cout << open_pque.size() << std::endl;
 			std::cout << node_vec.size() << std::endl;
 			show_board(new_node.board, &new_node);
+			show_path(&new_node);
 			exit(0);
 		}
 	}
@@ -157,7 +159,7 @@ void	Taquin::expansion()
 
 	this->current->isOpen = 1;
 	this->current->n++;
-	this->current->parent_node_hash = this->current->hash;
+	this->current->parent_id = this->current->id;
 	//move	
 	if (current->empty_x != 0)			//LEFT
 		move_empty(-1, 0);
@@ -180,12 +182,22 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	this->current = &tmp_node;
 	tmp_node.board = _board;
 	tmp_node.hash = this->zh.generate_hash(_board);
-	tmp_node.parent_node_hash = 0;
+	tmp_node.parent_id = -1;
 	tmp_node.isOpen = 1;
 	tmp_node.n = 0;
 	tmp_node.id = 0;
 	tmp_node.set_empty();
 	this->evaluation(&tmp_node);
+
+	if (tmp_node.h == 0)
+	{
+		std::cout << hash_map.size() << std::endl;
+		std::cout << open_pque.size() << std::endl;
+		std::cout << node_vec.size() << std::endl;
+		show_board(tmp_node.board, &tmp_node);
+		show_path(&tmp_node);
+		exit(0);
+	}
 
 	node_vec.push_back(tmp_node);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id

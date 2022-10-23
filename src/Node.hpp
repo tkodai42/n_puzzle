@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:04 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:58:06 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 22:10:25 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ class	Node
 		long long			hash;
 		int					isOpen;
 		int					id;
+		int					parent_id;
 
 	public:
 		void show()
