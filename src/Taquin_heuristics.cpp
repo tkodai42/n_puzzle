@@ -6,13 +6,16 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 16:56:16 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 21:54:41 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Taquin.hpp"
 
-int		Taquin::heuristics_manhattan_distance()
+/*
+ *	SEARCH_MANHATTAN_DISTANCE
+ */
+int		Taquin::heuristics_manhattan_distance(Node *node)
 {
 	int					v = 0;
 	std::pair<int, int>	correct_pos_pair;
@@ -22,17 +25,25 @@ int		Taquin::heuristics_manhattan_distance()
 	{
 		for (int x = 0; x < size; x++)
 		{
-			num = this->current->board[y * size + x];
+			num = node->board[y * size + x];
 			if (num == 0) //is space
 				continue ;
 			correct_pos_pair = goal_board_xy[num];
 			v += abs(x - correct_pos_pair.first) + abs(y - correct_pos_pair.second);
 		}
 	}
+
+	node->g = node->n;
+	node->h = v;
+	node->w = node->g + node->h;
+
 	return v;
 }
 
-int		Taquin::heuristics_improved_manhattan_distance()
+/*
+ *	SEARCH_IMPROVED_MANHATTAN_DISTANCE
+ */
+int		Taquin::heuristics_improved_manhattan_distance(Node *node)
 {
 	int					v = 0;
 	std::pair<int, int>	correct_pos_pair;
@@ -44,7 +55,7 @@ int		Taquin::heuristics_improved_manhattan_distance()
 	{
 		for (int x = 0; x < size; x++)
 		{
-			num = this->current->board[y * size + x];
+			num = node->board[y * size + x];
 			if (num == 0) //is space
 				continue ;
 			correct_pos_pair = goal_board_xy[num];
@@ -53,10 +64,18 @@ int		Taquin::heuristics_improved_manhattan_distance()
 			v += x_dist * x_dist + y_dist * y_dist;
 		}
 	}
+
+	node->g = node->n;
+	node->h = v;
+	node->w = node->g + node->h;
+
 	return v;
 }
 
-int		Taquin::heuristics_correct_number_of_pieces()
+/*
+ *	SEARCH_CORRECT_NUMBER_OF_PIECES
+ */
+int		Taquin::heuristics_correct_number_of_pieces(Node *node)
 {
 	int					v = 0;
 	std::pair<int, int>	correct_pos_pair;
@@ -66,7 +85,7 @@ int		Taquin::heuristics_correct_number_of_pieces()
 	{
 		for (int x = 0; x < size; x++)
 		{
-			num = this->current->board[y * size + x];
+			num = node->board[y * size + x];
 			if (num == 0) //is space
 				continue ;
 			correct_pos_pair = goal_board_xy[num];
@@ -74,23 +93,27 @@ int		Taquin::heuristics_correct_number_of_pieces()
 				v += 1;
 		}
 	}
+
+	node->g = node->n;
+	node->h = v;
+	node->w = node->g + node->h;
+
 	return v;
 }
 
-int		Taquin::evaluation()
+int		Taquin::evaluation(Node *node)
 {
-#if 0
-	g_hueristics_type = SEARCH_CORRECT_NUMBER_OF_PIECES;
+#if 1
+	g_hueristics_type = SEARCH_MANHATTAN_DISTANCE;
 #endif
 	if (g_hueristics_type == SEARCH_MANHATTAN_DISTANCE)
-		return heuristics_manhattan_distance();
+		return heuristics_manhattan_distance(node);
 	if (g_hueristics_type == SEARCH_IMPROVED_MANHATTAN_DISTANCE)
-		return heuristics_improved_manhattan_distance();
+		return heuristics_improved_manhattan_distance(node);
 	if (g_hueristics_type == SEARCH_CORRECT_NUMBER_OF_PIECES)
-		return heuristics_correct_number_of_pieces();
-
+		return heuristics_correct_number_of_pieces(node);
 
 		
 	show_message("not find heuristics => manhattan_distance", DEBUG_ERROR);
-	return heuristics_manhattan_distance();
+	return heuristics_manhattan_distance(node);
 }

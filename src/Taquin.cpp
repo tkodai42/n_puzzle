@@ -69,43 +69,96 @@ void	Taquin::generate_goal_board()
 	goal_board_xy[0] = std::make_pair(x, y);
 }	
 
-
-int		Taquin::calculate_w(Node *node) 
+void	Taquin::move_empty(int mx, int my)
 {
-	//TODO メモ化
+	int			empty_pos = this->current->empty_y * size + this->current->empty_x;
+	int			target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
+	int			target_num = current->board[target_pos];
+	long long 	new_hash = 0;
+	
+	//swap
+	new_hash = zh.update_hash(current->hash, current->board, empty_pos, target_num); //update empty -> target
+	new_hash = zh.update_hash(new_hash, current->board, target_pos, 0); //update target -> empty
 
-	int		i;
-	int		limit = this->size * this->size;
-	int		num;
-	int		target_x;
-	int		target_y;
-	int		dist = 0;
-
-	for (int y = 0; y < this->size; y++)
+	//check hash, exist?
+	if (hash_map.count(new_hash) == 1)
 	{
-		for (int x = 0; x < this->size; x++)
+		int index = hash_map[new_hash];
+
+		if (node_vec[index].n > this->current->n)
 		{
-			num = node->board[y * this->size + x];
-			target_x = this->goal_board_xy[num].first;
-			target_y = this->goal_board_xy[num].second;
-			dist += abs(target_x - x) + abs(target_y - y);
+			Node	new_node;
+
+			new_node = node_vec[index];
+			new_node.n = this->current->n;
+			new_node.parent_node_hash = this->current->parent_node_hash;
+			new_node.isOpen = 1;
+			this->evaluation(&new_node);
+			
+			node_vec[index] = new_node;
+			open_pque.push(INT_PAIR(new_node.w, index));
+
+			if (new_node.h == 0)
+			{
+				std::cout << hash_map.size() << std::endl;
+				std::cout << open_pque.size() << std::endl;
+				std::cout << node_vec.size() << std::endl;
+				show_board(new_node.board, &new_node);
+				exit(0);
+			}
+
+
 		}
 	}
-	return dist;
+	else
+	{
+		Node	new_node;
+
+		new_node = *current;
+		new_node.hash = new_hash;
+		new_node.empty_x += mx;
+		new_node.empty_y += my;
+		new_node.board[empty_pos] = target_num; //swap
+		new_node.board[target_pos] = 0; //space
+		this->evaluation(&new_node);
+
+		new_node.id = node_vec.size();
+		node_vec.push_back(new_node); //submit node
+		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
+		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
+
+
+		if (new_node.h == 0)
+		{
+			std::cout << hash_map.size() << std::endl;
+			std::cout << open_pque.size() << std::endl;
+			std::cout << node_vec.size() << std::endl;
+			show_board(new_node.board, &new_node);
+			exit(0);
+		}
+	}
 }
 
 void	Taquin::expansion()
 {
-	std::cout << "\n--- Taquin::expansion ---\n" << std::endl;
-	
-	show_board(this->current->board);
-	
-}
 
+
+	this->current->isOpen = 1;
+	this->current->n++;
+	this->current->parent_node_hash = this->current->hash;
+	//move	
+	if (current->empty_x != 0)			//LEFT
+		move_empty(-1, 0);
+	if (current->empty_x != size - 1)	//RIGHT
+		move_empty(1, 0);
+	if (current->empty_y != 0)			//UP
+		move_empty(0, -1);
+	if (current->empty_y != size - 1)	//DOWN
+		move_empty(0, 1);
+}
 
 void	Taquin::start(std::vector<int> _board, int _size)
 {
-	std::cout << "\n--- Taquin::start ---\n" << std::endl;
 	this->size = _size;
 	generate_goal_board();
 	this->zh.init(_size * _size, _size * _size); //hash
@@ -115,18 +168,30 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	this->current = &tmp_node;
 	tmp_node.board = _board;
 	tmp_node.hash = this->zh.generate_hash(_board);
+	tmp_node.parent_node_hash = 0;
+	tmp_node.isOpen = 1;
 	tmp_node.n = 0;
-	tmp_node.w = this->calculate_w(&tmp_node);
+	tmp_node.id = 0;
+	tmp_node.set_empty();
+	this->evaluation(&tmp_node);
 
-	open_queue.push(tmp_node);
-	while (!open_queue.empty())
+	node_vec.push_back(tmp_node);
+	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
+	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
+
+	INT_PAIR index;
+	while (!open_pque.empty())
 	{
-		tmp_node = open_queue.top(); //get highest
-		open_queue.pop();
+		index = open_pque.top();
+		open_pque.pop();
+		if (node_vec[index.second].isOpen == 0)
+		{
+			continue;
+		}
+		node_vec[index.second].isOpen = 0;
+		tmp_node = node_vec[index.second];
 		this->current = &tmp_node;
-		
-		tmp_node.show();
-		
 		expansion();
 	}
+
 }

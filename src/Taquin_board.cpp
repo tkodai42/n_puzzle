@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 16:31:52 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/23 19:56:09 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@
 #include <iomanip>
 #include <string>
 
-void	Taquin::show_board(std::vector<int> &board)
+void	Taquin::show_board(std::vector<int> &board, Node *node)
 {
-	show_message("show_board", DEBUG_FUNCTION);	
+	show_message("show_board", DEBUG_FUNCTION);		
 
-	std::cout << evaluation() << std::endl;
+	if (node)
+	{
+		std::cout
+			<< "n: " << node->n << " g: " << node->g << " h: " << node->h << " w: " << node->w
+			<< " hash: " << node->hash << std::endl;
+	}
 
 	int size = sqrt(board.size());
 	int	num;

@@ -5,17 +5,30 @@
 #include "ZobristHash.hpp"
 #include "utils.hpp"
 
+
+
 class	Taquin
 {
+	private:
+		typedef std::pair<int, int>			INT_PAIR;
+		typedef std::pair<long long, int>	HASH_PAIR;
+
 	public:
 		Node							*current;
 		Node							*new_node;
-		std::priority_queue<Node>		open_queue;
-		std::map<unsigned int, Node>	close_map;
+		//std::priority_queue<Node>		open_queue;
+		//std::map<unsigned int, Node>	close_map;
 		int								size;
 
+		//--- update ---
+
+		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
+		//std::priority_queue<INT_PAIR>	open_pque; 
+		std::map<long long, int>														hash_map;
+		std::vector<Node>																node_vec;
+			
 		std::vector<int>				goal_board;
-		std::vector<std::pair<int, int> >	goal_board_xy;
+		std::vector<INT_PAIR>			goal_board_xy;
 	
 	public:
 		ZobristHash						zh;
@@ -30,16 +43,17 @@ class	Taquin
 		void	expansion();
 
 		void	generate_goal_board();
-		int		calculate_w(Node *node);
+		void	move_empty(int x, int y);
+		//int		calculate_w(Node *node);
 
 		//Taquin_board
-		void	show_board(std::vector<int> &baord);
+		void	show_board(std::vector<int> &baord, Node *n = NULL);
 
 		//Taquin_heuristics
-		int		evaluation();	
-		int		heuristics_manhattan_distance();
-		int		heuristics_improved_manhattan_distance();
-		int		heuristics_correct_number_of_pieces();
+		int		evaluation(Node *n);	
+		int		heuristics_manhattan_distance(Node *n);
+		int		heuristics_improved_manhattan_distance(Node *n);
+		int		heuristics_correct_number_of_pieces(Node *n);
 };
 
 #endif
