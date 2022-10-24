@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 17:37:32 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 18:01:32 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ class	ParseArgv
 		std::map<int, std::string>	option_name_map;//<bit, option str>
 
 	public:
+		ParseArgv();
+
 		int		start(int argc, char *argv[]);
 
 		void	check_option_bit();
@@ -31,7 +33,6 @@ class	ParseArgv
 		void	generate_bit_map();
 		void	regist_map(std::string s, int b, std::string on);
 
-		ParseArgv();
 };
 
 #endif

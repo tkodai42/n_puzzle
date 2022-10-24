@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 16:34:48 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:54:03 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	n_puzzle(int argc, char *argv[])
 
 	if (parserArg.start(argc, argv) != NOMAL_STATE)
 		return ;
-	if (reader.start(argv[1]) != NOMAL_STATE)
+	if (reader.start(argv[parserArg.file_index]) != NOMAL_STATE)
 		return ;
 	if (parser.start(reader.data_string) != NOMAL_STATE)
 		return ;	
 	parser.show();
+	taquin.setting = &parserArg;
 	taquin.start(parser.get_board(), parser.board_size);
 }
 

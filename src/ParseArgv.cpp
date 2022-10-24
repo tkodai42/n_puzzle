@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 17:37:30 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:56:02 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 void	ParseArgv::check_option_bit()
 {
-	std::cout << std::bitset<32>(this->option_bit) << std::endl;
+	std::cout << "   " << std::bitset<32>(this->option_bit) << std::endl;
 
 	std::map<std::string, int>::iterator	it = option_bit_map.begin(); 
 	std::map<std::string, int>::iterator	ite = option_bit_map.end();
@@ -44,7 +44,6 @@ void	ParseArgv::check_option_bit()
 
 		std::cout << std::setw(4) << it->first << ": "
 			<< on_off << option_name_map[it->second] << std::endl;
-	
 	}
 }
 
@@ -87,14 +86,13 @@ int		ParseArgv::start(int argc, char *argv[])
 		if (it == ite)
 		{
 			std::cout << "Error: option " << argv[i] << std::endl;
+			return 42;
 		}
 		else
 		{
 			this->option_bit |= it->second;
 		}
-		check_option_bit();
 	}
-
-
+	check_option_bit();
 	return NOMAL_STATE;
 }

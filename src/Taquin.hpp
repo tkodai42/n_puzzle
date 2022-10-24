@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 16:24:15 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:52:53 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Node.hpp"
 #include "ZobristHash.hpp"
 #include "utils.hpp"
+#include "ParseArgv.hpp"
 
 
 
@@ -28,14 +29,13 @@ class	Taquin
 	public:
 		Node							*current;
 		Node							*new_node;
-		//std::priority_queue<Node>		open_queue;
-		//std::map<unsigned int, Node>	close_map;
 		int								size;
+
+		ParseArgv						*setting;
 
 		//--- update ---
 
 		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
-		//std::priority_queue<INT_PAIR>	open_pque; 
 		std::map<long long, int>														hash_map;
 		std::vector<Node>																node_vec;
 			

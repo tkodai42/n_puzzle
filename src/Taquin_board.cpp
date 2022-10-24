@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 22:27:07 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 18:01:34 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	Taquin::show_path(Node *node)
 
 	for (int i = 0; r_it != r_ite; r_it++, i++)
 	{
-		std::cout << " >>> " << i << " <<< " << std::endl;
+		//std::cout << " >>> " << i << " <<< " << std::endl;
 		tmp = node_vec[*r_it];
 		show_board(tmp.board, &tmp);
 	}
