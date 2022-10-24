@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:56:26 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:34:48 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 #include "ReadFile.hpp"
 #include "ParseData.hpp"
 #include "Taquin.hpp"
+#include "Manual.hpp"
+#include "ParseArgv.hpp"
 
 int		g_heuristics_type;
 
-void	n_puzzle(char *file_name)
+void	n_puzzle(int argc, char *argv[])
 {
 	ReadFile	reader;
 	ParseData	parser;
 	Taquin		taquin;
+	ParseArgv	parserArg;
 
-	if (reader.start(file_name) != NOMAL_STATE)
+	if (parserArg.start(argc, argv) != NOMAL_STATE)
+		return ;
+	if (reader.start(argv[1]) != NOMAL_STATE)
 		return ;
 	if (parser.start(reader.data_string) != NOMAL_STATE)
 		return ;	
@@ -33,11 +38,13 @@ void	n_puzzle(char *file_name)
 
 int		main(int argc, char *argv[])
 {
-	std::cout << "--- n_puzzle ---" << std::endl;
-	
-	//check args
 	g_heuristics_type = SEARCH_MANHATTAN_DISTANCE;
-	if (argc != 2)
+	if (argc < 2)
+	{
+		Manual	m;
+
+		m.put_option_error();
 		return 0;
-	n_puzzle(argv[1]);
+	}
+	n_puzzle(argc, argv);
 }
