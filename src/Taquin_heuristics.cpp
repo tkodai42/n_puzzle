@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 14:41:16 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:15:47 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		Taquin::heuristics_test_42(Node *node)
 
 int		Taquin::evaluation(Node *node)
 {
-#if 0
+#if 1
 	g_hueristics_type = SEARCH_IMPROVED_MANHATTAN_DISTANCE;
 	//g_hueristics_type = 42;
 #endif

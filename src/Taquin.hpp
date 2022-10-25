@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 14:28:35 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:08:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ class	Taquin
 			
 		std::vector<int>				goal_board;
 		std::vector<INT_PAIR>			goal_board_xy;
+		
+		//time
+		time_t							start_time;
+		time_t							end_time;
 	
 	public:
 		ZobristHash						zh;

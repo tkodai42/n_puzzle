@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 17:20:50 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:09:00 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+#include <chrono>
 
 #define	NOMAL_STATE	0
 #define ERROR_OPEN	2

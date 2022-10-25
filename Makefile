@@ -32,3 +32,6 @@ gen		:
 
 3		: all 
 	./${NAME}	test/${FILE3}
+
+4		: all 
+	./${NAME}	test/${FILE4}

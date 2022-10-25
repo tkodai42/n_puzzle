@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 14:28:33 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:14:40 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	Taquin::move_empty(int mx, int my)
 			std::cout << node_vec.size() << std::endl;
 			show_board(new_node.board, &new_node);
 			show_path(&new_node);
+			this->end_time = clock();
+			std::cout << "time: " << (double)(end_time - start_time) / 1000000 << std::endl;
 			exit(0);
 		}
 	}
@@ -92,6 +94,8 @@ void	Taquin::expansion()
 void	Taquin::start(std::vector<int> _board, int _size)
 {
 	Node tmp_node;
+
+	this->start_time = clock();
 
 	node_vec.reserve(10000);
 	isOpen_vec.reserve(10000);
