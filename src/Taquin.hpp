@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 17:52:53 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:28:35 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include "utils.hpp"
 #include "ParseArgv.hpp"
 
-
+#define	OPEN_NODE	1
+#define	CLOSE_NODE	0
 
 class	Taquin
 {
@@ -38,6 +39,7 @@ class	Taquin
 		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
 		std::map<long long, int>														hash_map;
 		std::vector<Node>																node_vec;
+		std::vector<int>																isOpen_vec;
 			
 		std::vector<int>				goal_board;
 		std::vector<INT_PAIR>			goal_board_xy;

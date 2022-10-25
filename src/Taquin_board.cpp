@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 18:01:34 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:00:52 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,74 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+
+void	set_next_xy(int &x, int &y)
+{
+	if (x == 1)
+	{
+		x = 0;
+		y = 1;
+	}
+	else if (y == 1)
+	{
+		x = -1;
+		y = 0;
+	}
+	else if (x == -1)
+	{
+		x = 0;
+		y = -1;
+	}
+	else // y == -1
+	{
+		x = 1;
+		y = 0;
+	}
+}
+
+void	Taquin::generate_goal_board()
+{
+	int					limit = this->size * this->size;
+	std::vector<int>	check;
+	int					x = 0;
+	int					y = 0;
+	int					move_x = 1;
+	int					move_y = 0;
+	int					tmp_x;
+	int					tmp_y;
+	int					next_flag;
+	
+	this->goal_board.assign(limit, 0);
+	this->goal_board_xy.resize(limit);//xy
+	check.assign(limit, 0);
+
+	for (int i = 1; i < limit; i++)
+	{
+		check[y * this->size + x] = 1;
+		goal_board[y * this->size + x] = i;
+
+		goal_board_xy[i] = std::make_pair(x, y);
+
+		next_flag = 0;
+		tmp_x = x + move_x;
+		tmp_y = y + move_y;
+		
+		if (tmp_x < 0 || tmp_y < 0 || this->size <= tmp_x || this->size <= tmp_y) //out
+			next_flag = 1;
+		else if (check[tmp_y * this->size + tmp_x] != 0) //already set
+			next_flag = 1;
+		if (next_flag == 1)
+		{
+			set_next_xy(move_x, move_y);
+			tmp_x = x + move_x;
+			tmp_y = y + move_y;
+		}
+		x = tmp_x;
+		y = tmp_y;
+	}
+	// set 0
+	goal_board_xy[0] = std::make_pair(x, y);
+}
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)
 {

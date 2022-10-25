@@ -6,80 +6,11 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 22:13:15 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:28:33 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Taquin.hpp"
-
-void	set_next_xy(int &x, int &y)
-{
-	if (x == 1)
-	{
-		x = 0;
-		y = 1;
-	}
-	else if (y == 1)
-	{
-		x = -1;
-		y = 0;
-	}
-	else if (x == -1)
-	{
-		x = 0;
-		y = -1;
-	}
-	else // y == -1
-	{
-		x = 1;
-		y = 0;
-	}
-}
-
-void	Taquin::generate_goal_board()
-{
-	int					limit = this->size * this->size;
-	std::vector<int>	check;
-	int					x = 0;
-	int					y = 0;
-	int					move_x = 1;
-	int					move_y = 0;
-	int					tmp_x;
-	int					tmp_y;
-	int					next_flag;
-	
-	this->goal_board.assign(limit, 0);
-	this->goal_board_xy.resize(limit);//xy
-	check.assign(limit, 0);
-
-	for (int i = 1; i < limit; i++)
-	{
-		check[y * this->size + x] = 1;
-		goal_board[y * this->size + x] = i;
-
-		goal_board_xy[i] = std::make_pair(x, y);
-
-
-		next_flag = 0;
-		tmp_x = x + move_x;
-		tmp_y = y + move_y;
-		
-		if (tmp_x < 0 || tmp_y < 0 || this->size <= tmp_x || this->size <= tmp_y) //out
-			next_flag = 1;
-		else if (check[tmp_y * this->size + tmp_x] != 0) //already set
-			next_flag = 1;
-		if (next_flag == 1)
-		{
-			set_next_xy(move_x, move_y);
-			tmp_x = x + move_x;
-			tmp_y = y + move_y;
-		}
-		x = tmp_x;
-		y = tmp_y;
-	}
-	// set 0
-	goal_board_xy[0] = std::make_pair(x, y);
-}	
 
 void	Taquin::move_empty(int mx, int my)
 {
@@ -104,23 +35,13 @@ void	Taquin::move_empty(int mx, int my)
 			new_node = node_vec[index];
 			new_node.n = this->current->n;
 			new_node.parent_id = this->current->parent_id;
-			new_node.isOpen = 1;
+			//new_node.isOpen = 1;
+			
 			this->evaluation(&new_node);
 			
 			node_vec[index] = new_node;
+			isOpen_vec[index] = OPEN_NODE;
 			open_pque.push(INT_PAIR(new_node.w, index));
-
-			if (new_node.h == 0)
-			{
-				std::cout << hash_map.size() << std::endl;
-				std::cout << open_pque.size() << std::endl;
-				std::cout << node_vec.size() << std::endl;
-				show_board(new_node.board, &new_node);
-				show_path(&new_node);
-				exit(0);
-			}
-
-
 		}
 	}
 	else
@@ -137,9 +58,9 @@ void	Taquin::move_empty(int mx, int my)
 
 		new_node.id = node_vec.size();
 		node_vec.push_back(new_node); //submit node
+		isOpen_vec.push_back(OPEN_NODE);
 		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
 		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
-
 
 		if (new_node.h == 0)
 		{
@@ -155,9 +76,6 @@ void	Taquin::move_empty(int mx, int my)
 
 void	Taquin::expansion()
 {
-
-
-	this->current->isOpen = 1;
 	this->current->n++;
 	this->current->parent_id = this->current->id;
 	//move	
@@ -173,11 +91,14 @@ void	Taquin::expansion()
 
 void	Taquin::start(std::vector<int> _board, int _size)
 {
+	Node tmp_node;
+
+	node_vec.reserve(10000);
+	isOpen_vec.reserve(10000);
+
 	this->size = _size;
 	generate_goal_board();
 	this->zh.init(_size * _size, _size * _size); //hash
-
-	Node tmp_node;
 
 	this->current = &tmp_node;
 	tmp_node.board = _board;
@@ -200,6 +121,7 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	}
 
 	node_vec.push_back(tmp_node);
+	isOpen_vec.push_back(OPEN_NODE);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
 	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
 
@@ -208,11 +130,11 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	{
 		index = open_pque.top();
 		open_pque.pop();
-		if (node_vec[index.second].isOpen == 0)
+		if (isOpen_vec[index.second] == CLOSE_NODE)
 		{
 			continue;
 		}
-		node_vec[index.second].isOpen = 0;
+		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];
 		this->current = &tmp_node;
 		expansion();
