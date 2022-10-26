@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 17:23:26 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 23:03:28 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,39 @@ void	Option::generate_bit_map()
 	regist_map("g", BIT_DEBUG, "debug");
 }
 
+void	Option::man()
+{
+	char		file_name[] = "src/.n_puzzle.txt";
+	char		buf[1000 + 1];
+	std::string	data;
+	int			fd;
+	int			ret;
+
+	fd = open(file_name, O_RDWR);
+	if (fd < 0)
+		return ;
+	while (1)
+	{
+		ret = read(fd, buf, 1000);
+		if (ret <= 0)
+			break ;
+		buf[ret] = 0;
+		data += buf;
+	}
+	std::cout << data << std::endl;
+}
+
+void	Option::put_manual()
+{
+	std::map<std::string, int>::iterator	it = option_bit_map.begin();
+	std::map<std::string, int>::iterator	ite = option_bit_map.end();
+
+	std::cout << "usege: n_puzzle ";
+	for (; it != ite; it++)
+		std::cout << "[-" << it->first << "] ";
+	std::cout << "[file]" << std::endl; 
+}
+
 Option::Option()
 {
 	this->option_bit = 0;
@@ -86,7 +119,7 @@ int		Option::start(int argc, char *argv[])
 	std::string	check_arg1;
 	std::string check_arg2;
 
-	for (int i = 1; i < file_index; i++)
+	for (int i = 1; argv[i]; i++)
 	{
 		if (*argv[i] == '-')
 		{
@@ -105,8 +138,8 @@ int		Option::start(int argc, char *argv[])
 				}
 				if (it == ite)
 				{
-					std::cout << "Error: option " << argv[i] << std::endl;
-					exit(0);
+					//std::cout << "Error: option " << argv[i] << std::endl;
+					//exit(0);
 				}
 				else
 				{
@@ -115,12 +148,18 @@ int		Option::start(int argc, char *argv[])
 				arg++;
 			}
 		}
-		else
+		else if (i != file_index)
 		{
 			std::cout << "Error: option " << argv[i] << std::endl;
 			exit(0);	
 		}
 	}
+	if (option_bit & BIT_HELP)
+	{
+		man();
+		return 42;
+	}
+
 	check_option_bit();
 
 	if (option_bit == 0)

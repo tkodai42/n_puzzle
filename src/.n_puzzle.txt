@@ -1,0 +1,15 @@
+NAME
+     echo -- write arguments to the standard output
+
+SYNOPSIS
+     echo [-n] [string ...]
+
+DESCRIPTION
+     The echo utility writes any specified operands, separated by single blank (` ') charac-
+     ters and followed by a newline (`\n') character, to the standard output.
+
+     The following option is available:
+
+     -n    Do not print the trailing newline character.  This may also be achieved by append-
+           ing `\c' to the end of the string, as is done by iBCS2 compatible systems.  Note
+           that this option as well as the effect of `\c' are implementation-defined in IEEE

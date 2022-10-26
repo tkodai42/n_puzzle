@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 14:43:44 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 22:44:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "ReadFile.hpp"
 #include "ParseData.hpp"
 #include "Taquin.hpp"
-#include "Manual.hpp"
 #include "Option.hpp"
 
 int		g_heuristics_type;
@@ -26,6 +25,11 @@ void	n_puzzle(int argc, char *argv[])
 	Taquin		taquin;
 	Option		parserArg;
 
+	if (argc < 2)
+	{
+		parserArg.put_manual();	
+		return ;
+	}
 	if (parserArg.start(argc, argv) != NOMAL_STATE)
 		return ;
 	if (reader.start(argv[parserArg.file_index]) != NOMAL_STATE)
@@ -39,13 +43,5 @@ void	n_puzzle(int argc, char *argv[])
 
 int		main(int argc, char *argv[])
 {
-	g_heuristics_type = SEARCH_MANHATTAN_DISTANCE;
-	if (argc < 2)
-	{
-		Manual	m;
-
-		m.put_option_error();
-		return 0;
-	}
 	n_puzzle(argc, argv);
 }

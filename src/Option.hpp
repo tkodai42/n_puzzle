@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 14:39:24 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 22:55:45 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ class	Option
 		void	generate_bit_map();
 		void	regist_map(std::string s, int b, std::string on);
 
+		void	put_manual();
+		void	man();
 };
 
 #endif
