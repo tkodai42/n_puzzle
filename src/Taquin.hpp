@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:08:51 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:41:17 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "Node.hpp"
 #include "ZobristHash.hpp"
 #include "utils.hpp"
-#include "ParseArgv.hpp"
+#include "Option.hpp"
 
 #define	OPEN_NODE	1
 #define	CLOSE_NODE	0
@@ -32,7 +32,7 @@ class	Taquin
 		Node							*new_node;
 		int								size;
 
-		ParseArgv						*setting;
+		Option						*setting;
 
 		//--- update ---
 

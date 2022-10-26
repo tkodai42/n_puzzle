@@ -6,11 +6,11 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:03:54 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:49:18 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ParseArgv.hpp"
+#include "Option.hpp"
 
 /*
  *	-h		help
@@ -25,7 +25,7 @@
  *	-p		can play n_puzzle!!!
  */
 
-void	ParseArgv::check_option_bit()
+void	Option::check_option_bit()
 {
 	std::cout << "   " << std::bitset<32>(this->option_bit) << std::endl;
 
@@ -47,32 +47,34 @@ void	ParseArgv::check_option_bit()
 	}
 }
 
-void	ParseArgv::regist_map(std::string option, int bit, std::string option_name)
+void	Option::regist_map(std::string option, int bit, std::string option_name)
 {
 	this->option_bit_map.insert(std::make_pair(option, bit));
 	this->option_name_map.insert(std::make_pair(bit, option_name));
 }
 
-void	ParseArgv::generate_bit_map()
+void	Option::generate_bit_map()
 {
 	regist_map("-h", BIT_HELP, "HELP");
 	regist_map("-f1", BIT_MANHATTAN_DISTANCE, "The Manhattan-distance");
 	regist_map("-f2", BIT_IMPROVED_MANHATTAN_DISTANCE, "Improved Manhattan-distance");
 	regist_map("-f3", BIT_CORRECT_NUMBER_OF_PIECES, "Corrent number of pieces");
-	regist_map("-f4", BIT_BOGO, "Search bogo => ...random");
-	regist_map("-f5", BIT_UNIFORM_COST, "Uniform Cost");
-	regist_map("-f6", BIT_GREEDY, "greedy search");
-	regist_map("-f7", BIT_ORIGINAL, "Original");
+	regist_map("-f4", BIT_EUCLIDEAN_DISTANCE, "Euclidean-distance");
+	regist_map("-f5", BIT_BOGO, "Search bogo => ...random");
+	regist_map("-f6", BIT_UNIFORM_COST, "Uniform Cost");
+	regist_map("-f7", BIT_GREEDY, "greedy search");
+	regist_map("-f8", BIT_ORIGINAL, "Original");
 	regist_map("-p", BIT_PLAY_GAME, "play n_puzzle!!!");
+	regist_map("-v", BIT_PLAY_GAME, "visualize");
 }
 
-ParseArgv::ParseArgv()
+Option::Option()
 {
 	this->option_bit = 0;
 	generate_bit_map();
 }
 
-int		ParseArgv::start(int argc, char *argv[])
+int		Option::start(int argc, char *argv[])
 {
 	//set file
 	this->file_index = argc - 1; //last argv

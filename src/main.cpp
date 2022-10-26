@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:04:08 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:43:44 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ParseData.hpp"
 #include "Taquin.hpp"
 #include "Manual.hpp"
-#include "ParseArgv.hpp"
+#include "Option.hpp"
 
 int		g_heuristics_type;
 
@@ -24,7 +24,7 @@ void	n_puzzle(int argc, char *argv[])
 	ReadFile	reader;
 	ParseData	parser;
 	Taquin		taquin;
-	ParseArgv	parserArg;
+	Option		parserArg;
 
 	if (parserArg.start(argc, argv) != NOMAL_STATE)
 		return ;

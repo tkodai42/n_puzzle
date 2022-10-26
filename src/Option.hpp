@@ -6,16 +6,16 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/24 18:01:32 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:39:24 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSEARGV_HPP
-#define PARSEARGV_HPP
+#ifndef OPTION_HPP
+#define OPTION_HPP
 
 #include "utils.hpp"
 
-class	ParseArgv
+class	Option
 {
 	public:
 		int							file_index;
@@ -24,7 +24,7 @@ class	ParseArgv
 		std::map<int, std::string>	option_name_map;//<bit, option str>
 
 	public:
-		ParseArgv();
+		Option();
 
 		int		start(int argc, char *argv[]);
 

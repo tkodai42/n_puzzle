@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:09:00 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:52:20 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,28 @@
 #define	SEARCH_MANHATTAN_DISTANCE			0
 #define	SEARCH_IMPROVED_MANHATTAN_DISTANCE	1
 #define	SEARCH_CORRECT_NUMBER_OF_PIECES		2
-#define	SEARCH_BOGO							3
+#define	SEARCH_EUCLIDEAN_DISTANCE			4
+#define	SEARCH_BOGO							5
 
-#define	SEARCH_UNIFORM_COST					4
-#define	SEARCH_GREEDY						5
-#define	SEARCH_ORIGINAL						6
+#define	SEARCH_UNIFORM_COST					6
+#define	SEARCH_GREEDY						7
+#define	SEARCH_ORIGINAL						8
 
-#define	TMP_PLAY_GAME						10
-#define TMP_HELP							11
+#define	TMP_PLAY_GAME						9
+#define TMP_HELP							10
+#define TMP_VISUALIZE						11
 
 #define	BIT_MANHATTAN_DISTANCE				(1<<SEARCH_MANHATTAN_DISTANCE)	
 #define	BIT_IMPROVED_MANHATTAN_DISTANCE		(1<<SEARCH_IMPROVED_MANHATTAN_DISTANCE)
 #define	BIT_CORRECT_NUMBER_OF_PIECES		(1<<SEARCH_CORRECT_NUMBER_OF_PIECES)
+#define	BIT_EUCLIDEAN_DISTANCE				(1<<SEARCH_EUCLIDEAN_DISTANCE)
 #define	BIT_BOGO							(1<<SEARCH_BOGO)
 #define	BIT_UNIFORM_COST					(1<<SEARCH_UNIFORM_COST)
 #define	BIT_GREEDY							(1<<SEARCH_GREEDY)
 #define	BIT_ORIGINAL						(1<<SEARCH_ORIGINAL)
 #define BIT_PLAY_GAME						(1<<TMP_PLAY_GAME)
 #define BIT_HELP							(1<<TMP_HELP)
+#define BIT_VISUALIZE						(1<<TMP_VISUALIZE)
 
 extern int g_debug;
 extern int g_hueristics_type;
