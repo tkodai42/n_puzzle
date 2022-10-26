@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:15:47 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:22:11 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,21 +140,12 @@ int		Taquin::heuristics_test_42(Node *node)
 
 int		Taquin::evaluation(Node *node)
 {
-#if 1
-	g_hueristics_type = SEARCH_IMPROVED_MANHATTAN_DISTANCE;
-	//g_hueristics_type = 42;
-#endif
-	if (g_hueristics_type == SEARCH_MANHATTAN_DISTANCE)
+	if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
 		return heuristics_manhattan_distance(node);
-	if (g_hueristics_type == SEARCH_IMPROVED_MANHATTAN_DISTANCE)
+	if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
 		return heuristics_improved_manhattan_distance(node);
-	if (g_hueristics_type == SEARCH_CORRECT_NUMBER_OF_PIECES)
+	if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
 		return heuristics_correct_number_of_pieces(node);
 
-	if (g_hueristics_type == 42)
-		return heuristics_test_42(node);
-
-		
-	show_message("not find heuristics => manhattan_distance", DEBUG_ERROR);
 	return heuristics_manhattan_distance(node);
 }

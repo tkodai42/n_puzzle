@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 17:14:40 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:57:59 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ void	Taquin::move_empty(int mx, int my)
 	int			target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
 	int			target_num = current->board[target_pos];
 	long long 	new_hash = 0;
+
+	std::map<long long, int>::iterator it;
+	std::map<long long, int>::iterator ite = hash_map.end();;
 	
 	//swap
 	new_hash = zh.update_hash(current->hash, current->board, empty_pos, target_num); //update empty -> target
 	new_hash = zh.update_hash(new_hash, current->board, target_pos, 0); //update target -> empty
 
 	//check hash, exist?
-	if (hash_map.count(new_hash) == 1)
+	if ((it = hash_map.find(new_hash)) != ite)
 	{
-		int index = hash_map[new_hash];
+		int index = it->second;
 
 		if (node_vec[index].n > this->current->n)
 		{
@@ -64,12 +67,12 @@ void	Taquin::move_empty(int mx, int my)
 
 		if (new_node.h == 0)
 		{
-			std::cout << hash_map.size() << std::endl;
-			std::cout << open_pque.size() << std::endl;
-			std::cout << node_vec.size() << std::endl;
+
 			show_board(new_node.board, &new_node);
 			show_path(&new_node);
 			this->end_time = clock();
+			std::cout << "open: " << open_pque.size() << std::endl;
+			std::cout << "node: " << node_vec.size() << std::endl;
 			std::cout << "time: " << (double)(end_time - start_time) / 1000000 << std::endl;
 			exit(0);
 		}
@@ -97,8 +100,8 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 	this->start_time = clock();
 
-	node_vec.reserve(10000);
-	isOpen_vec.reserve(10000);
+	node_vec.reserve(1000000);
+	isOpen_vec.reserve(1000000);
 
 	this->size = _size;
 	generate_goal_board();
@@ -137,6 +140,11 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		if (isOpen_vec[index.second] == CLOSE_NODE)
 		{
 			continue;
+		}
+		if (setting->option_bit & BIT_DEBUG)
+		{
+			std::cout << "open: " << open_pque.size() << std::endl;
+			std::cout << "node: " << node_vec.size() << std::endl;
 		}
 		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];

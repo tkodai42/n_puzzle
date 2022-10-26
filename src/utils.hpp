@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 14:52:20 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:22:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 #define	TMP_PLAY_GAME						9
 #define TMP_HELP							10
 #define TMP_VISUALIZE						11
+#define TMP_DEBUG							12
 
 #define	BIT_MANHATTAN_DISTANCE				(1<<SEARCH_MANHATTAN_DISTANCE)	
 #define	BIT_IMPROVED_MANHATTAN_DISTANCE		(1<<SEARCH_IMPROVED_MANHATTAN_DISTANCE)
@@ -54,9 +55,9 @@
 #define BIT_PLAY_GAME						(1<<TMP_PLAY_GAME)
 #define BIT_HELP							(1<<TMP_HELP)
 #define BIT_VISUALIZE						(1<<TMP_VISUALIZE)
+#define BIT_DEBUG							(1<<TMP_DEBUG)
 
 extern int g_debug;
-extern int g_hueristics_type;
 
 #define	DEBUG_FUNCTION	0
 #define DEBUG_MESSAGE	1
