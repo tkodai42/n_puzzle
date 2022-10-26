@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 23:03:28 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/26 23:55:22 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	Option::generate_bit_map()
 	regist_map("f6", BIT_UNIFORM_COST, "Uniform Cost");
 	regist_map("f7", BIT_GREEDY, "greedy search");
 	regist_map("f8", BIT_ORIGINAL, "Original");
+	regist_map("f9", BIT_GREEDY_IMD, "greedy + Improved Manhattan-distance");
 	regist_map("p", BIT_PLAY_GAME, "play n_puzzle!!!");
 	regist_map("v", BIT_VISUALIZE, "visualize");
 	regist_map("g", BIT_DEBUG, "debug");
@@ -70,24 +71,18 @@ void	Option::generate_bit_map()
 
 void	Option::man()
 {
-	char		file_name[] = "src/.n_puzzle.txt";
-	char		buf[1000 + 1];
-	std::string	data;
-	int			fd;
-	int			ret;
-
-	fd = open(file_name, O_RDWR);
-	if (fd < 0)
-		return ;
-	while (1)
+	std::map<std::string, int>::iterator	it = option_bit_map.begin();
+	std::map<std::string, int>::iterator	ite = option_bit_map.end();
+	
+	std::cout << "     " << "The options are as follows:\n" << std::endl;
+	for (; it != ite; it++)
 	{
-		ret = read(fd, buf, 1000);
-		if (ret <= 0)
-			break ;
-		buf[ret] = 0;
-		data += buf;
+		std::cout
+			<< "     -" << std::left << std::setw(5) << it->first
+			<< option_name_map[it->second] << std::endl;
+
+		std::cout << std::endl;
 	}
-	std::cout << data << std::endl;
 }
 
 void	Option::put_manual()
