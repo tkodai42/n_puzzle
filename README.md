@@ -1,10 +1,10 @@
 # n_puzzle
 
-SYNOPSIS
+### SYNOPSIS
 
      n_puzzle [-...] [file]
 
-DESCRIPTION
+### DESCRIPTION
 
      The options are as follows:
 
