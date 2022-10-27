@@ -5,21 +5,21 @@ FILE5 = 5.txt
 FILE10 = 10.txt
 FILE11 = 11.txt
 
-SRC = $(shell find src -type f -name "*.cpp")
+SRCS = $(shell find src -type f -name "*.cpp")
 HDRS = $(shell find src -type f -name "*.hpp")
-OBJ = $(SRC:.cpp=.o)
+OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
 
 all	: $(NAME)
 
-$(NAME)	:	$(OBJ)
-	$(CXX) -o $(NAME) $(OBJ)
+$(NAME)	:	$(OBJS)
+	$(CXX) -o $(NAME) $(OBJS)
 
-$(OBJ)		:	$(HDRS)
+$(OBJS)		:	$(HDRS)
 
 clean	:
-	rm -rf $(OBJ)
+	rm -rf $(OBJS)
 
 fclean	: clean
 	rm -f $(NAME)
