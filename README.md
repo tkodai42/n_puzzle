@@ -1,6 +1,7 @@
 # n_puzzle
 
 SYNOPSIS
+
      n_puzzle [-...] [file]
 
 DESCRIPTION
