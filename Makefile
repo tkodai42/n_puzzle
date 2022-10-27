@@ -6,6 +6,7 @@ FILE10 = 10.txt
 FILE11 = 11.txt
 
 SRC = $(shell find src -type f -name "*.cpp")
+HDRS = $(shell find src -type f -name "*.hpp")
 OBJ = $(SRC:.cpp=.o)
 
 CXX = clang++
@@ -14,6 +15,8 @@ all	: $(NAME)
 
 $(NAME)	:	$(OBJ)
 	$(CXX) -o $(NAME) $(OBJ)
+
+$(OBJ)		:	$(HDRS)
 
 clean	:
 	rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 15:14:51 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:40:18 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ class	Taquin
 		Node							*new_node;
 		int								size;
 
-		Option						*setting;
+		Option							*setting;
 
-		//--- update ---
-
+		/***   A*   ***/
 		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
 		std::map<long long, int>														hash_map;
 		std::vector<Node>																node_vec;
@@ -51,7 +50,7 @@ class	Taquin
 	
 
 		//Total number of states ever selected in the "opened" set 
-		int		opened_nodes_num;
+		int								opened_nodes_num;
 
 	public:
 		ZobristHash						zh;
@@ -69,7 +68,6 @@ class	Taquin
 
 		void	generate_goal_board();
 		void	move_empty(int x, int y);
-		//int		calculate_w(Node *node);
 
 		//Taquin_board
 		void	show_board(std::vector<int> &baord, Node *n = NULL);
