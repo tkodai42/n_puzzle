@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:32 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:58:33 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:46:38 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ class	ZobristHash
 
 		~ZobristHash() {}
 	
-		unsigned long long xor128()
-		{
-    		static unsigned long x = 123456789, y = 362436069, z = 521288629, w = 88675123; 
-    		unsigned long t = (x ^ (x << 11));
-
-			x = y; y = z; z = w;
-			return(w = (w ^ (w >> 19)) ^ (t ^ (t >> 8))); 
-		} 
+		//unsigned long long xor128()
+		//{
+    	//	static unsigned long x = 123456789, y = 362436069, z = 521288629, w = 88675123; 
+    	//	unsigned long t = (x ^ (x << 11));
+		//
+		//	x = y; y = z; z = w;
+		//	return(w = (w ^ (w >> 19)) ^ (t ^ (t >> 8))); 
+		//} 
 		// xorshift => http://www.jstatsoft.org/v08/i14/
 
 		void	init(int board_len, int hand_num)
@@ -46,13 +46,13 @@ class	ZobristHash
 			this->hand_num = hand_num;
 			this->zobrist_table.resize(board_len * hand_num);
 
-			//srand((time(NULL)));
+			srand((time(NULL)));
 			for (int y = 0; y < this->board_len; y++)
 			{
 				for (int x = 0; x < hand_num; x++)
 				{
-					//this->zobrist_table[y * board_len + x] = ((long long)rand() << 32) + rand();
-					this->zobrist_table[y * board_len + x] = xor128();
+					this->zobrist_table[y * board_len + x] = ((long long)rand() << 32) + rand();
+					//this->zobrist_table[y * board_len + x] = xor128();
 				}
 			}
 		}

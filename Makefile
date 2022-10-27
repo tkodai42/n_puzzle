@@ -10,21 +10,22 @@ HDRS = $(shell find src -type f -name "*.hpp")
 OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
+CXXFLAGS += -O2 -Wall -Wextra -Werror
 
-all	: $(NAME)
+all		: $(NAME)
 
 $(NAME)	:	$(OBJS)
 	$(CXX) -o $(NAME) $(OBJS)
 
-$(OBJS)		:	$(HDRS)
+$(OBJS)	:	$(HDRS)
 
 clean	:
 	rm -rf $(OBJS)
 
-fclean	: clean
+fclean	:	clean
 	rm -f $(NAME)
 
-re		: fclean all
+re		:	fclean all
 
 gen		:
 	python	gen.py 3 > test/${FILE3}
@@ -33,8 +34,8 @@ gen		:
 	python	gen.py 10 > test/${FILE10}
 	python	gen.py 11 > test/${FILE11}
 
-3		: all 
+3		:	all 
 	./${NAME}	test/${FILE3}
 
-4		: all 
+4		:	all 
 	./${NAME}	test/${FILE4}

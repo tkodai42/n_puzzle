@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 15:20:57 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:01:30 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ std::string	Taquin::get_adopted_heuristic()
 	heuristics_bits.push_back(BIT_UNIFORM_COST);
 	heuristics_bits.push_back(BIT_GREEDY);
 
-	for (int i = 0; i < heuristics_bits.size(); i++)
+	for (unsigned long i = 0; i < heuristics_bits.size(); i++)
 	{
 		if (setting->option_bit & heuristics_bits[i])
 			return setting->option_name_map[heuristics_bits[i]];

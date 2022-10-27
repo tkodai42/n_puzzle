@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 16:07:23 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:42:13 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ class	Option
 
 		void	put_manual();
 		void	man();
+
+		class	MapContainsNonAlphaException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: ParseData: map contains non-alphabet");
+				}
+		};
 };
 
 #endif

@@ -24,6 +24,23 @@ class	ParseData
 		void	show();
 
 		std::vector<int>	get_board();
+
+		class	MapContainsNonAlphaException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: ParseData: map contains non-alphabet");
+				}
+		};
+		class	ParseDataException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: ParseData: ");
+				}
+		};
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:01 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:58:53 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:57:04 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ void	ParseData::check_only_number()
 
 	for (; it != ite; it++)
 	{
-		for (int i = 0; i < it->length(); i++)
+		for (unsigned long i = 0; i < it->length(); i++)
 		{
 			if (!((*it)[i] == ' ' || ('0' <= (*it)[i] && (*it)[i] <= '9'))) //!(0 || number)
 			{
-				this->status = 42;
-				return ;
+				throw ParseData::MapContainsNonAlphaException();
 			}
 		}
 	}
@@ -116,28 +115,26 @@ void	ParseData::parse_line(const char *str)
 			num = positive_atoi(&str);
 			if (num < 0)
 			{
-				this->status = 42;
-				return ;
+				throw ParseData::ParseDataException();
 			}
 			this->board.push_back(num);
 			content_count++;
 		}
 	}
 	if (content_count != this->board_size)
-		this->status = 40;
+		throw ParseData::ParseDataException();
 }
 
 void	ParseData::set_board(std::list<std::string>::iterator it)
 {
 	std::list<std::string>::iterator	ite = this->board_list.end();
-	int									size_count = 0;
 
 	for (; it != ite; it++)
 	{
 		parse_line((*it).c_str());
 	}
-	if (this->board.size() != this->board_size * this->board_size)
-		this->status = 42;
+	if (this->board.size() != (unsigned long)this->board_size * this->board_size)
+		throw ParseData::ParseDataException();
 }
 
 void	ParseData::check_size()
@@ -155,7 +152,7 @@ void	ParseData::check_size()
 		ret = simple_atoi(ptr);
 		this->board_size = ret;
 		if (ret == -1)
-			this->status = 42;
+			throw ParseData::ParseDataException();
 		it++;
 		break ;
 	}
@@ -166,14 +163,14 @@ void	ParseData::conflict_check()
 {	
 	std::map<int, int>	checker;
 
-	for (int i = 0; i < this->board.size(); i++)
+	for (unsigned long i = 0; i < this->board.size(); i++)
 	{
 		std::pair<std::map<int, int>::iterator, bool> res = 
 			checker.insert(std::make_pair(this->board[i], 1));
 		if (res.second == false)
 		{
-			std::cout << "Error: conflict number" << std::endl;
-			this->status = 42;
+			//std::cout << "Error: conflict number" << std::endl;
+			throw ParseData::ParseDataException();
 		}
 	}
 }

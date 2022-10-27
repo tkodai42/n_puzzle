@@ -6,17 +6,11 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:10 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:57:26 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:50:58 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ReadFile.hpp"
-
-int		ReadFile::put_error()
-{
-	std::cout << "Error: " << ERROR_OPEN << std::endl;
-	return this->status;
-}
 
 ReadFile::ReadFile()
 {
@@ -34,11 +28,6 @@ int	ReadFile::start(std::string _name)
 	this->status = NOMAL_STATE;
 
 	open_file();
-	if (this->status != NOMAL_STATE)
-	{
-		put_error();
-		return this->status;
-	}
 	read_file_data();
 	return this->status;
 }
@@ -47,7 +36,8 @@ void	ReadFile::open_file()
 {
 	this->fd = open(this->file_name.c_str(), O_RDWR);
 	if (this->fd < 0)
-		this->status = ERROR_OPEN;
+		throw	ReadFile::OpenException();
+		//this->status = ERROR_OPEN;
 }
 
 void	ReadFile::read_file_data()
@@ -60,8 +50,9 @@ void	ReadFile::read_file_data()
 		ret = read(this->fd, buf, BUFFER_SIZE);
 		if (ret == -1)
 		{
-			std::cout << "Error: ReadFile: read" << std::endl;
-			exit(1);
+			throw	ReadFile::ReadException();
+			//std::cout << "Error: ReadFile: read" << std::endl;
+			//exit(1);
 		}
 		if (ret == 0)
 			break;

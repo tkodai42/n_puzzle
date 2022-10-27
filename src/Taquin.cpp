@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 15:16:47 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:52:49 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 
 void	Taquin::display_result(Node &node)
 {
-	show_board(node.board, &node);
 	show_path(&node);
 	this->end_time = clock();
 
@@ -125,13 +124,13 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 	init(tmp_node, _board, _size);
 
-	if (tmp_node.h == 0)
-		display_result(tmp_node);
-
 	node_vec.push_back(tmp_node);
 	isOpen_vec.push_back(OPEN_NODE);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
 	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
+
+	if (tmp_node.h == 0)
+		display_result(tmp_node);
 
 	INT_PAIR index;
 	while (!open_pque.empty())

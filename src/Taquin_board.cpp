@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 14:30:42 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:57:21 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ void	Taquin::generate_goal_board()
 	this->goal_board_snake.resize(limit);//xy
 	check.assign(limit, 0);
 
-	for (int i = 1; i < limit; i++)
+	int		i = 1;
+
+	for (; i < limit; i++)
 	{
 		check[y * this->size + x] = 1;
 		goal_board[y * this->size + x] = i;
+		goal_board_snake[i - 1] = std::make_pair(x, y);
 
 		goal_board_xy[i] = std::make_pair(x, y);
 
@@ -83,6 +86,7 @@ void	Taquin::generate_goal_board()
 	}
 	// set 0
 	goal_board_xy[0] = std::make_pair(x, y);
+	goal_board_snake[i - 1] = std::make_pair(x, y);
 }
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)
@@ -136,7 +140,6 @@ void	Taquin::show_path(Node *node)
 {
 	std::vector<int>	path_id;
 	int					current_id = node->id;
-	int					current_hash = node->hash;
 
 	while (current_id != 0)
 	{

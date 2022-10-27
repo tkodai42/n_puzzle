@@ -6,14 +6,13 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:54 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 21:57:56 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:44:46 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.hpp"
 
 int		g_debug = 1;
-int		g_hueristics_type;
 
 void	show_message(const char *message, int flag = 0)
 {
