@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 00:30:57 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:14:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,16 @@ class	Taquin
 		time_t							start_time;
 		time_t							end_time;
 	
+
+		//Total number of states ever selected in the "opened" set 
+		int		opened_nodes_num;
+
 	public:
 		ZobristHash						zh;
 
 		void	start(std::vector<int> _board, int _size);
+		void	init(Node &node, std::vector<int> &_b, int _s);
+		void	display_result(Node &node);
 
 		void	zh_init(int len, int hands_num)
 		{
@@ -83,6 +89,9 @@ class	Taquin
 
 		//test
 		int		heuristics_test_42(Node *n);
+
+		//
+		std::string		get_adopted_heuristic();
 };
 
 #endif

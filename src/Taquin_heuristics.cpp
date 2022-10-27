@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 23:55:04 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:20:57 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,26 @@ int		Taquin::heuristics_test_42(Node *node)
 
 	return v;
 
+}
+
+std::string	Taquin::get_adopted_heuristic()
+{
+	std::vector<long long> heuristics_bits;
+
+	heuristics_bits.push_back(BIT_MANHATTAN_DISTANCE);
+	heuristics_bits.push_back(BIT_IMPROVED_MANHATTAN_DISTANCE);
+	heuristics_bits.push_back(BIT_CORRECT_NUMBER_OF_PIECES);
+	heuristics_bits.push_back(BIT_EUCLIDEAN_DISTANCE);
+	heuristics_bits.push_back(BIT_GREEDY_IMD);
+	heuristics_bits.push_back(BIT_UNIFORM_COST);
+	heuristics_bits.push_back(BIT_GREEDY);
+
+	for (int i = 0; i < heuristics_bits.size(); i++)
+	{
+		if (setting->option_bit & heuristics_bits[i])
+			return setting->option_name_map[heuristics_bits[i]];
+	}
+	return "???";
 }
 
 int		Taquin::evaluation(Node *node)

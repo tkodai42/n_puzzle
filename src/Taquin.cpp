@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 13:18:09 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:16:47 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,7 @@ void	Taquin::move_empty(int mx, int my)
 
 		if (new_node.h == 0)
 		{
-			show_board(new_node.board, &new_node);
-			show_path(&new_node);
-			this->end_time = clock();
-			std::cout << "open: " << open_pque.size() << std::endl;
-			std::cout << "node: " << node_vec.size() << std::endl;
-			std::cout << "time: " << (double)(end_time - start_time) / 1000000 << std::endl;
-			exit(0);
+			display_result(new_node);
 		}
 	}
 }
@@ -89,11 +83,10 @@ void	Taquin::expansion()
 		move_empty(0, 1);
 }
 
-void	Taquin::start(std::vector<int> _board, int _size)
+void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 {
-	Node tmp_node;
-
 	this->start_time = clock();
+	opened_nodes_num= 0;
 
 	node_vec.reserve(1000000);
 	isOpen_vec.reserve(1000000);
@@ -110,16 +103,30 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	tmp_node.id = 0;
 	tmp_node.set_empty();
 	this->evaluation(&tmp_node);
+}
+
+void	Taquin::display_result(Node &node)
+{
+	show_board(node.board, &node);
+	show_path(&node);
+	this->end_time = clock();
+
+	std::cout << "heuristics    : " << get_adopted_heuristic() << std::endl;
+	std::cout << "open queue    : " << open_pque.size() << std::endl;
+	std::cout << "visited nodes : " << opened_nodes_num << std::endl;
+	std::cout << "nodes         : " << node_vec.size() << std::endl;
+	std::cout << "time          : " << (double)(end_time - start_time) / 1000000 << std::endl;
+	exit(0);
+}
+
+void	Taquin::start(std::vector<int> _board, int _size)
+{
+	Node tmp_node;
+
+	init(tmp_node, _board, _size);
 
 	if (tmp_node.h == 0)
-	{
-		std::cout << hash_map.size() << std::endl;
-		std::cout << open_pque.size() << std::endl;
-		std::cout << node_vec.size() << std::endl;
-		show_board(tmp_node.board, &tmp_node);
-		show_path(&tmp_node);
-		exit(0);
-	}
+		display_result(tmp_node);
 
 	node_vec.push_back(tmp_node);
 	isOpen_vec.push_back(OPEN_NODE);
@@ -140,6 +147,7 @@ void	Taquin::start(std::vector<int> _board, int _size)
 			std::cout << "open: " << open_pque.size() << std::endl;
 			std::cout << "node: " << node_vec.size() << std::endl;
 		}
+		opened_nodes_num++;
 		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];
 		this->current = &tmp_node;

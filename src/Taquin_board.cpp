@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 00:31:28 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 14:30:42 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,15 @@ void	Taquin::generate_goal_board()
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)
 {
-	//show_message("show_board", DEBUG_FUNCTION);		
+	if (setting->option_bit & BIT_VISUALIZE)
+	{
+		for (int i = 0; i < size * size; i++)
+		{
+			std::cout << board[i] << ", ";
+		}
+		std::cout << std::endl;
+		return ;
+	}
 
 	if (node)
 	{
@@ -96,7 +104,6 @@ void	Taquin::show_board(std::vector<int> &board, Node *node)
 			<< " hash: " << node->hash << std::endl;
 	}
 
-	int size = sqrt(board.size());
 	int	num;
 	int display_width;
 
@@ -145,7 +152,6 @@ void	Taquin::show_path(Node *node)
 
 	for (int i = 0; r_it != r_ite; r_it++, i++)
 	{
-		//std::cout << " >>> " << i << " <<< " << std::endl;
 		tmp = node_vec[*r_it];
 		show_board(tmp.board, &tmp);
 	}
