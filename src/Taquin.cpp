@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/26 23:42:16 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 13:18:09 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ void	Taquin::move_empty(int mx, int my)
 
 		if (node_vec[index].n > this->current->n)
 		{
-			Node	new_node;
-
-			new_node = node_vec[index];
-			new_node.n = this->current->n;
-			new_node.parent_id = this->current->parent_id;
-			//new_node.isOpen = 1;
+			Node	new_node = *(this->current);
 			
 			this->evaluation(&new_node);
 			
@@ -49,25 +44,25 @@ void	Taquin::move_empty(int mx, int my)
 	}
 	else
 	{
-		Node	new_node;
+		Node	new_node = *current;
 
-		new_node = *current;
 		new_node.hash = new_hash;
 		new_node.empty_x += mx;
 		new_node.empty_y += my;
 		new_node.board[empty_pos] = target_num; //swap
 		new_node.board[target_pos] = 0; //space
+
 		this->evaluation(&new_node);
 
-		new_node.id = node_vec.size();
+		new_node.id = node_vec.size();//latest node
 		node_vec.push_back(new_node); //submit node
-		isOpen_vec.push_back(OPEN_NODE);
+		isOpen_vec.push_back(OPEN_NODE);//add open list
+
 		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
 		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
 
 		if (new_node.h == 0)
 		{
-
 			show_board(new_node.board, &new_node);
 			show_path(&new_node);
 			this->end_time = clock();
@@ -111,7 +106,6 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	tmp_node.board = _board;
 	tmp_node.hash = this->zh.generate_hash(_board);
 	tmp_node.parent_id = -1;
-	tmp_node.isOpen = 1;
 	tmp_node.n = 0;
 	tmp_node.id = 0;
 	tmp_node.set_empty();

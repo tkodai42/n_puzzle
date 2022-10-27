@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/25 14:00:52 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 00:31:28 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	Taquin::generate_goal_board()
 	
 	this->goal_board.assign(limit, 0);
 	this->goal_board_xy.resize(limit);//xy
+	this->goal_board_snake.resize(limit);//xy
 	check.assign(limit, 0);
 
 	for (int i = 1; i < limit; i++)

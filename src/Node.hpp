@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:04 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/23 22:10:25 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/27 13:15:53 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,16 @@ class	Node
 {
 	public:
 		int	w; //worth
-
+		int	n; // step
 
 		int	g; // the cost of the path from the start node to n
-		int	n; // step
 		int	h; // the cost of the cheapest path from n to the goal
-
 
 		std::vector<int>	board;
 		int					empty_x;
 		int					empty_y;
 		long long			parent_node_hash;
 		long long			hash;
-		int					isOpen;
 		int					id;
 		int					parent_id;
 
