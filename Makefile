@@ -10,7 +10,7 @@ HDRS = $(shell find src -type f -name "*.hpp")
 OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
-CXXFLAGS += -O2 -Wall -Wextra -Werror
+#CXXFLAGS += -O2 -Wall -Wextra -Werror
 
 all		: $(NAME)
 
@@ -35,6 +35,11 @@ gen		:
 	python	gen.py 11 > test/${FILE11}
 
 3		:	all 
+	./${NAME}	test/${FILE3}
+
+33		:	all
+	python	gen.py 3 > test/${FILE3}
+	@cat test/$(FILE3)
 	./${NAME}	test/${FILE3}
 
 4		:	all 

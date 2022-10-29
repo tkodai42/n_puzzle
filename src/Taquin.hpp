@@ -90,6 +90,18 @@ class	Taquin
 
 		//
 		std::string		get_adopted_heuristic();
+
+		//can solve
+		void	can_solve(std::vector<int> v, int size);
+
+		class	UnsolvableException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: Taquin: unsolvable");
+				}
+		};
 };
 
 #endif

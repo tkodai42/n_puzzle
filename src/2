@@ -94,8 +94,8 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	this->size = _size;
 	generate_goal_board();
 	
-	can_solve(_board, _size);
 	//check can solve
+	exit(0);
 	this->zh.init(_size * _size, _size * _size); //hash
 
 	this->current = &tmp_node;
