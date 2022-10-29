@@ -44,3 +44,8 @@ gen		:
 
 4		:	all 
 	./${NAME}	test/${FILE4}
+
+run 	:
+	python	gen.py $(ARG) > test/$(FILE$(ARG))
+	@cat test/$(FILE${ARG})
+	./${NAME} test/${FILE$(ARG)}
