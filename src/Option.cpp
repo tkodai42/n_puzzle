@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 01:36:20 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:19:15 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	Option::check_option_bit()
 	std::map<std::string, int>::iterator	ite = option_bit_map.end();
 	std::string on_off;
 
+	std::cout << "\n --- option ---" << std::endl;
 	for (; it != ite; it++)
 	{
 		if (this->option_bit & it->second)
@@ -86,11 +87,8 @@ void	Option::generate_bit_map()
 	regist_map("f2", BIT_IMPROVED_MANHATTAN_DISTANCE, "Improved Manhattan-distance");
 	regist_map("f3", BIT_CORRECT_NUMBER_OF_PIECES, "Corrent number of pieces");
 	regist_map("f4", BIT_EUCLIDEAN_DISTANCE, "Euclidean-distance");
-	//regist_map("f5", BIT_BOGO, "Search bogo => ...random");
 	regist_map("u", BIT_UNIFORM_COST, "Uniform Cost");
 	regist_map("g", BIT_GREEDY, "greedy search");
-	//regist_map("f8", BIT_ORIGINAL, "Original");
-	//regist_map("f9", BIT_GREEDY_IMD, "greedy + Improved Manhattan-distance");
 	regist_map("p", BIT_PLAY_GAME, "play n_puzzle!!!");
 	regist_map("v", BIT_VISUALIZE, "visualize");
 	//regist_map("g", BIT_DEBUG, "debug");
@@ -160,8 +158,7 @@ int		Option::start(int argc, char *argv[])
 				}
 				if (it == ite)
 				{
-					//std::cout << "Error: option " << argv[i] << std::endl;
-					//exit(0);
+					throw Option::InvalidOptionException();
 				}
 				else
 				{
@@ -172,8 +169,7 @@ int		Option::start(int argc, char *argv[])
 		}
 		else if (i != file_index)
 		{
-			std::cout << "Error: option " << argv[i] << std::endl;
-			exit(0);	
+			throw Option::InvalidOptionException();
 		}
 	}
 	if (option_bit & BIT_HELP)

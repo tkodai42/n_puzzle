@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:37:53 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:12:55 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	n_puzzle(int argc, char *argv[])
 		reader.start(argv[parserArg.file_index]);
 		parser.start(reader.data_string);
 		taquin.setting = &parserArg;
+		taquin.input_data = reader.data_string;
 		taquin.start(parser.get_board(), parser.board_size);
 	}
 	catch (std::exception &e)

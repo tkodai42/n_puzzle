@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 01:36:18 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:09:40 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ class	Option
 				virtual const char* what() const throw()
 				{
 					return ("Error: ParseData: duplication heuristic");
+				}
+		};
+		class	InvalidOptionException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: ParseData: Invalid Option");
 				}
 		};
 		class	PutManualException : public std::exception

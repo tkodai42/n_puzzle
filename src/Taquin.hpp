@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 01:34:42 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:12:25 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class	Taquin
 		Node							*new_node;
 		int								size;
 		int								limit;
+		std::string						input_data;
 
 		Option							*setting;
 
