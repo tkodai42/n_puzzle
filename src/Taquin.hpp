@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 15:40:18 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:34:59 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class	Taquin
 		Node							*current;
 		Node							*new_node;
 		int								size;
+		int								limit;
 
 		Option							*setting;
 

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:52:49 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:33:59 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,12 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	isOpen_vec.reserve(1000000);
 
 	this->size = _size;
+	this->limit = _size * _size;
 	generate_goal_board();
 	
 	can_solve(_board, _size);
 	//check can solve
-	this->zh.init(_size * _size, _size * _size); //hash
+	this->zh.init(limit, limit); //hash
 
 	this->current = &tmp_node;
 	tmp_node.board = _board;

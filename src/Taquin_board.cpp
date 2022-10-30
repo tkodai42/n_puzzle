@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:57:21 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:34:30 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	set_next_xy(int &x, int &y)
 
 void	Taquin::generate_goal_board()
 {
-	int					limit = this->size * this->size;
 	std::vector<int>	check;
 	int					x = 0;
 	int					y = 0;
@@ -93,7 +92,7 @@ void	Taquin::show_board(std::vector<int> &board, Node *node)
 {
 	if (setting->option_bit & BIT_VISUALIZE)
 	{
-		for (int i = 0; i < size * size; i++)
+		for (int i = 0; i < limit; i++)
 		{
 			std::cout << board[i] << ", ";
 		}
