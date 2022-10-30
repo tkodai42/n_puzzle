@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:04 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 13:27:45 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/30 12:43:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define NODE_HPP
 
 #include "utils.hpp"
-#include <math.h>
 
 class	Node
 {
@@ -28,7 +27,6 @@ class	Node
 		std::vector<int>	board;
 		int					empty_x;
 		int					empty_y;
-		long long			parent_node_hash;
 		long long			hash;
 		int					id;
 		int					parent_id;

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:12:52 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/30 12:43:03 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+#include <math.h>
 #include <chrono>
 
 #define	NOMAL_STATE	0
