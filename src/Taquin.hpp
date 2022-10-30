@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/30 23:34:59 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 01:34:42 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,8 @@ class	Taquin
 		int		heuristics_improved_manhattan_distance(Node *n);
 		int		heuristics_correct_number_of_pieces(Node *n);
 		int		heuristics_euclidean_distance(Node *n);
-		int		heuristics_greedy_imd(Node *n);
 
-		//bonus
-		int		heuristics_uniform_cost(Node *n);
-		int		heuristics_greedy(Node *n);
-
-		//test
-		int		heuristics_test_42(Node *n);
+		int		heuristics_bonus(Node *n);
 
 		//
 		std::string		get_adopted_heuristic();

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:33:48 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 01:36:20 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,34 @@
 
 void	Option::check_option_bit()
 {
-	std::cout << "   " << std::bitset<32>(this->option_bit) << std::endl;
+	// --- set heuristic ---
+	int		func_bit = 0;
+
+	func_bit |= BIT_MANHATTAN_DISTANCE;
+	func_bit |= BIT_IMPROVED_MANHATTAN_DISTANCE;
+	func_bit |= BIT_CORRECT_NUMBER_OF_PIECES;
+	func_bit |= BIT_EUCLIDEAN_DISTANCE;
+
+	if ((this->option_bit & func_bit) == 0)
+		this->option_bit |= BIT_MANHATTAN_DISTANCE;
+
+	// --- check duplicate heuristic ---
+	int		count = 0;
+
+	if (this->option_bit & BIT_MANHATTAN_DISTANCE)
+		count++;
+	if (this->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
+		count++;
+	if (this->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
+		count++;
+	if (this->option_bit & BIT_EUCLIDEAN_DISTANCE)
+		count++;
+	if (count != 1)
+		throw Option::DuplicateHeuristicException();
+
+
+	// --- show ---
+	//std::cout << "   " << std::bitset<32>(this->option_bit) << std::endl;
 
 	std::map<std::string, int>::iterator	it = option_bit_map.begin(); 
 	std::map<std::string, int>::iterator	ite = option_bit_map.end();
@@ -59,14 +86,14 @@ void	Option::generate_bit_map()
 	regist_map("f2", BIT_IMPROVED_MANHATTAN_DISTANCE, "Improved Manhattan-distance");
 	regist_map("f3", BIT_CORRECT_NUMBER_OF_PIECES, "Corrent number of pieces");
 	regist_map("f4", BIT_EUCLIDEAN_DISTANCE, "Euclidean-distance");
-	regist_map("f5", BIT_BOGO, "Search bogo => ...random");
-	regist_map("f6", BIT_UNIFORM_COST, "Uniform Cost");
-	regist_map("f7", BIT_GREEDY, "greedy search");
-	regist_map("f8", BIT_ORIGINAL, "Original");
-	regist_map("f9", BIT_GREEDY_IMD, "greedy + Improved Manhattan-distance");
+	//regist_map("f5", BIT_BOGO, "Search bogo => ...random");
+	regist_map("u", BIT_UNIFORM_COST, "Uniform Cost");
+	regist_map("g", BIT_GREEDY, "greedy search");
+	//regist_map("f8", BIT_ORIGINAL, "Original");
+	//regist_map("f9", BIT_GREEDY_IMD, "greedy + Improved Manhattan-distance");
 	regist_map("p", BIT_PLAY_GAME, "play n_puzzle!!!");
 	regist_map("v", BIT_VISUALIZE, "visualize");
-	regist_map("g", BIT_DEBUG, "debug");
+	//regist_map("g", BIT_DEBUG, "debug");
 }
 
 void	Option::man()
@@ -152,7 +179,7 @@ int		Option::start(int argc, char *argv[])
 	if (option_bit & BIT_HELP)
 	{
 		man();
-		return 42;
+		throw Option::PutManualException();
 	}
 
 	check_option_bit();
