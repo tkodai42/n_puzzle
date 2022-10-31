@@ -11,11 +11,12 @@ OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
 #CXXFLAGS += -O2 -Wall -Wextra -Werror
+#CXXFLAGS += -lncurses
 
 all		: $(NAME)
 
 $(NAME)	:	$(OBJS)
-	$(CXX) -o $(NAME) $(OBJS)
+	$(CXX) -lncurses -o $(NAME) $(OBJS)
 
 $(OBJS)	:	$(HDRS)
 

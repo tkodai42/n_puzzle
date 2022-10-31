@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/30 12:43:03 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:33 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 #include <string>
 #include <math.h>
 #include <chrono>
+#include <ncurses.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
 
 #define	NOMAL_STATE	0
 #define ERROR_OPEN	2

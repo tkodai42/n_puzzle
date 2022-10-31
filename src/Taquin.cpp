@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 02:14:46 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:56:22 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,11 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 	if (tmp_node.h == 0)
 		display_result(tmp_node);
+
+	if (this->setting->option_bit & BIT_PLAY_GAME)
+	{
+		psp.start(tmp_node);
+	}
 
 	INT_PAIR index;
 	while (!open_pque.empty())

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 02:12:25 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:54:56 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "ZobristHash.hpp"
 #include "utils.hpp"
 #include "Option.hpp"
+#include "PlaySlidePuzzle.hpp"
 
 #define	OPEN_NODE	1
 #define	CLOSE_NODE	0
@@ -56,6 +57,7 @@ class	Taquin
 
 	public:
 		ZobristHash						zh;
+		PlaySlidePuzzle					psp;
 
 		void	start(std::vector<int> _board, int _size);
 		void	init(Node &node, std::vector<int> &_b, int _s);
