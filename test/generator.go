@@ -82,6 +82,13 @@ func generateMap() {
 
 func printMap() {
 	digit := len(strconv.Itoa(size * size))
+
+	state := "solvable"
+	if !solvable {
+		state = "unsolvable"
+	}
+	fmt.Println("# This puzzle is", state)
+	fmt.Println(size)
 	for i := 0; i < size * size; i++ {
 		spacer := ' '
 		if i % size == size - 1 {
