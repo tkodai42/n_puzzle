@@ -96,16 +96,16 @@ func main() {
 	flagSolvable := flag.Bool("s", false, "Generate solvable puzzle")
 	flagUnsolvable := flag.Bool("u", false, "Generate unsolvable puzzle")
 	shuffleTimes := flag.Int("t", 4242, "Specify shuffling times")
-	puzzleSize := flag.Int("x", 4, "Puzzle size")
 	flag.Parse()
-	
-	if *puzzleSize < 3 {
+	args := flag.Args()
+	var err error
+	size, err = strconv.Atoi(args[0])
+	if err != nil || size < 3 {
 		panic("Puzzle size must be bigger than 2")
 	}
 	if *shuffleTimes < 0 {
 		panic("Value must be a positive integer")
 	}
-	size = *puzzleSize
 	iterations = *shuffleTimes
 
 	if !*flagSolvable && !*flagUnsolvable {
