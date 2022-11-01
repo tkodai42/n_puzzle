@@ -10,10 +10,51 @@ import (
 
 var size int;
 var solvable bool;
+var iterations int;
 var arrayMap []int;
 
 func coordToIdx(x, y int) (int) {
 	return y * size + x;
+}
+
+func idxToCoord(i int) (int, int) {
+	return i % size, i / size;
+}
+
+func swapCoords(c1, c2 int) {
+	tmp := arrayMap[c1]
+	arrayMap[c1] = arrayMap[c2]
+	arrayMap[c2] = tmp
+}
+
+func isInRange(x, y int) (bool) {
+	return 0 <= x && x < size && 0 <= y && y < size
+}
+
+func shuffleMap() {
+	n := 0
+	for n = 0; arrayMap[n] != 0; n++ {
+	}
+	for i := 0; i < iterations; i++ {
+		var choice []int
+		x, y := idxToCoord(n)
+		if isInRange(x + 1, y) {
+			choice = append(choice, n + 1)
+		}
+		if isInRange(x - 1, y) {
+			choice = append(choice, n - 1)
+		}
+		if isInRange(x, y + 1) {
+			choice = append(choice, n + size)
+		}
+		if isInRange(x, y - 1) {
+			choice = append(choice, n - size)
+		}
+		idx := rand.Intn(len(choice))
+		swp := choice[idx]
+		swapCoords(n, swp)
+		n = swp
+	}
 }
 
 func generateMap() {
@@ -54,13 +95,18 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	flagSolvable := flag.Bool("s", false, "Generate solvable puzzle")
 	flagUnsolvable := flag.Bool("u", false, "Generate unsolvable puzzle")
+	shuffleTimes := flag.Int("t", 4242, "Specify shuffling times")
 	puzzleSize := flag.Int("x", 4, "Puzzle size")
 	flag.Parse()
 	
 	if *puzzleSize < 3 {
 		panic("Puzzle size must be bigger than 2")
 	}
+	if *shuffleTimes < 0 {
+		panic("Value must be a positive integer")
+	}
 	size = *puzzleSize
+	iterations = *shuffleTimes
 
 	if !*flagSolvable && !*flagUnsolvable {
 		solvable = rand.Intn(2) == 1
@@ -71,6 +117,6 @@ func main() {
 	}
 
 	generateMap()
-
+	shuffleMap()
 	printMap()
 }
