@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 16:00:33 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/01 15:39:28 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,15 @@ extern int g_debug;
 #define COUT_RED	"\x1b[31m"
 #define COUT_GREEN	"\x1b[32m"
 #define COUT_END	"\x1b[m"
+
+/* curses */
+#define CURSES_BLUE_BLACK		1
+#define CURSES_RED_BLACK		2
+#define CURSES_MAGENTA_BLACK	3
+#define CURSES_GREEN_BLACK		4
+#define CURSES_CYAN_BLACK		5
+#define CURSES_YELLOW_BLACK		6
+#define CURSES_WHITE_BLACK		7
 
 void	show_message(const char *message, int flag);
 

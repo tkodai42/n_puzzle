@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:53:15 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 18:36:54 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/01 16:01:55 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ class	PlaySlidePuzzle
 {
 	public:
 		std::list<Node>		history;
+		std::vector<int>	complete_board;
 		int					size;
 		int					limit;
 		int					index;
 		Node				current_node;
+		Node				start_node;
 
 
 	public:

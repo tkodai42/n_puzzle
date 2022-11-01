@@ -18,7 +18,7 @@ all		: $(NAME)
 $(NAME)	:	$(OBJS)
 	$(CXX) -lncurses -o $(NAME) $(OBJS)
 
-$(OBJS)	:	$(HDRS)
+$(OBJS)	:	$(HDRS) Makefile
 
 clean	:
 	rm -rf $(OBJS)
