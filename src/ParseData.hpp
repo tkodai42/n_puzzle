@@ -41,6 +41,14 @@ class	ParseData
 					return ("Error: ParseData: ");
 				}
 		};
+		class	ParseDataNotSerialException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Error: ParseData: not serial number");
+				}
+		};
 };
 
 #endif

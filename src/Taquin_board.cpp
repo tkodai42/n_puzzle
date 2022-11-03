@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/01 17:40:18 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/03 23:51:20 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ void	Taquin::generate_goal_board()
 	this->goal_board_snake.resize(limit);//xy
 	check.assign(limit, 0);
 
-	std::vector<INT_PAIR>	snake_tmp;
-	
-	snake_tmp.clear();
-
 	int		i = 1;
 
 	for (; i < limit; i++)
@@ -69,7 +65,6 @@ void	Taquin::generate_goal_board()
 
 		goal_board_xy[i] = std::make_pair(x, y);
 		goal_board_snake[i - 1] = std::make_pair(x, y);
-		snake_tmp.push_back(std::make_pair(x, y));
 
 		next_flag = 0;
 		tmp_x = x + move_x;
@@ -84,12 +79,6 @@ void	Taquin::generate_goal_board()
 			set_next_xy(move_x, move_y);
 			tmp_x = x + move_x;
 			tmp_y = y + move_y;
-			//snake;
-			if (limit - i >= 9)
-			{
-				goal_board_snake2.push_back(snake_tmp);
-				snake_tmp.clear();
-			}
 		}
 		x = tmp_x;
 		y = tmp_y;
@@ -97,44 +86,6 @@ void	Taquin::generate_goal_board()
 	// set 0
 	goal_board_xy[0] = std::make_pair(x, y);
 	goal_board_snake[i - 1] = std::make_pair(x, y);
-	snake_tmp.push_back(std::make_pair(x, y));
-
-	goal_board_snake2.push_back(snake_tmp);
-	snake_tmp.clear();
-
-	for (int i = 0; i < goal_board_snake2.size(); i++)
-	{
-		std::cout << goal_board_snake2[i].size() << std::endl;
-	}
-	//pack 2 or 3
-	snake_tmp.clear();
-	for (int i = 0; i < goal_board_snake2.size(); i++)
-	{
-		snake_tmp.clear();
-		for (int j = 0; j < goal_board_snake2[i].size(); j++)
-		{
-			snake_tmp.push_back((goal_board_snake2[i])[j]);
-			if (goal_board_snake2[i].size() != 9
-				&& (snake_tmp.size() == 3
-				|| (snake_tmp.size() == 2 && goal_board_snake2[i].size() - j == 3)))
-			{
-				goal_board_snake3.push_back(snake_tmp);
-				snake_tmp.clear();
-			}
-		}
-		if (snake_tmp.size())
-		{
-			goal_board_snake3.push_back(snake_tmp);
-		}
-	}
-	std::cout << "aa ---" << std::endl;
-	for (int i = 0; i < goal_board_snake3.size(); i++)
-	{
-		std::cout << goal_board_snake3[i].size() << std::endl;
-	}
-
-
-	exit(0);
 }
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)
