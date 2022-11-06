@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var size int;
+var size int = 4;
 var solvable bool;
 var iterations int;
 var arrayMap []int;
@@ -114,10 +114,12 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	var err error
-	size, err = strconv.Atoi(args[0])
-	if err != nil || size < 3 {
-		fmt.Fprintf(os.Stderr, "Puzzle size must be bigger than 2\n")
-		return
+	if len(args) > 0 {
+		size, err = strconv.Atoi(args[0])
+		if err != nil || size < 3 {
+			fmt.Fprintf(os.Stderr, "Puzzle size must be bigger than 2\n")
+			return
+		}
 	}
 	if *shuffleTimes < 0 {
 		fmt.Fprintf(os.Stderr, "Value must be a positive integer\n")
