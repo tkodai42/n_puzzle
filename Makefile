@@ -8,6 +8,7 @@ FILE11 = 11.txt
 SRCS = $(shell find src -type f -name "*.cpp")
 HDRS = $(shell find src -type f -name "*.hpp")
 OBJS = $(SRCS:.cpp=.o)
+TESTER = generator
 
 CXX = clang++
 #CXXFLAGS += -O2 -Wall -Wextra -Werror
@@ -24,7 +25,7 @@ clean	:
 	rm -rf $(OBJS)
 
 fclean	:	clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(TESTER)
 
 re		:	fclean all
 
@@ -46,10 +47,13 @@ gen		:
 4		:	all 
 	./${NAME}	test/${FILE4}
 
-run 	:
-	python	gen.py $(ARG) > test/$(FILE$(ARG))
+run 	: $(NAME) $(TESTER)
+	./$(TESTER) $(ARG) > test/$(FILE$(ARG))
 	@cat test/$(FILE${ARG})
 	./${NAME} test/${FILE$(ARG)}
+
+$(TESTER):
+	go build test/$@.go
 
 define F
    @echo ==========================================
