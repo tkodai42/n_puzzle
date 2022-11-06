@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:01 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 22:57:04 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:10:07 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,10 @@ void	ParseData::check_size()
 		break ;
 	}
 	set_board(it);
+
+	if (this->board_size <= 1)
+		throw ParseData::ParseDataException();
+
 }
 
 void	ParseData::conflict_check()
@@ -172,6 +176,16 @@ void	ParseData::conflict_check()
 			//std::cout << "Error: conflict number" << std::endl;
 			throw ParseData::ParseDataException();
 		}
+	}
+
+	std::map<int, int>::iterator ite = checker.end();
+	std::map<int, int>::iterator it;
+
+	for (unsigned long i = 0; i < this->board.size(); i++)
+	{
+		it = checker.find(i);
+		if (it == ite)
+			throw ParseData::ParseDataNotSerialException();
 	}
 }
 

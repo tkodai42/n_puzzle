@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 02:26:44 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:14:18 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	Option::check_option_bit()
 
 	// --- show ---
 	//std::cout << "   " << std::bitset<32>(this->option_bit) << std::endl;
+	//
+
+	return ;
 
 	std::map<std::string, int>::iterator	it = option_bit_map.begin(); 
 	std::map<std::string, int>::iterator	ite = option_bit_map.end();

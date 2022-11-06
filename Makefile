@@ -19,7 +19,7 @@ all		: $(NAME)
 $(NAME)	:	$(OBJS)
 	$(CXX) -lncurses -o $(NAME) $(OBJS)
 
-$(OBJS)	:	$(HDRS) Makefile
+$(OBJS)	:	$(HDRS)
 
 clean	:
 	rm -rf $(OBJS)
@@ -54,3 +54,18 @@ run 	: $(TESTER)
 
 $(TESTER):
 	go build test/$@.go
+
+define F
+   @echo ==========================================
+   @echo [input file] $(1)
+   @cat $(1)
+   @echo [execute]
+   @./${NAME} $(1)
+
+endef
+
+xs :=  $(shell find map/invalid -type f -name "*.map")
+
+map:	all
+	$(foreach x,$(xs),$(call F,$(x)))
+	@echo ==========================================
