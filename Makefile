@@ -47,7 +47,7 @@ gen		:
 4		:	all 
 	./${NAME}	test/${FILE4}
 
-run 	: $(TESTER)
+run 	: $(NAME) $(TESTER)
 	./$(TESTER) $(ARG) > test/$(FILE$(ARG))
 	@cat test/$(FILE${ARG})
 	./${NAME} test/${FILE$(ARG)}
