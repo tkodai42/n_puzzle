@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
+	"os"
 	"strconv"
 	"time"
 )
@@ -78,6 +79,13 @@ func generateMap() {
 		y += dy
 	}
 	arrayMap[coordToIdx(x, y)] = 0
+	if !solvable {
+		if arrayMap[0] != 0 && arrayMap[1] != 0 {
+			swapCoords(0, 1)
+		} else {
+			swapCoords(size, size + 1)
+		}
+	}
 }
 
 func printMap() {
@@ -108,17 +116,20 @@ func main() {
 	var err error
 	size, err = strconv.Atoi(args[0])
 	if err != nil || size < 3 {
-		panic("Puzzle size must be bigger than 2")
+		fmt.Fprintf(os.Stderr, "Puzzle size must be bigger than 2\n")
+		return
 	}
 	if *shuffleTimes < 0 {
-		panic("Value must be a positive integer")
+		fmt.Fprintf(os.Stderr, "Value must be a positive integer\n")
+		return
 	}
 	iterations = *shuffleTimes
 
 	if !*flagSolvable && !*flagUnsolvable {
 		solvable = rand.Intn(2) == 1
 	} else if *flagSolvable && *flagUnsolvable {
-		panic("You cannot choose both solvable and unsolvable.")
+		fmt.Fprintf(os.Stderr, "You cannot choose both solvable and unsolvable.\n")
+		return
 	} else {
 		solvable = *flagSolvable
 	}
