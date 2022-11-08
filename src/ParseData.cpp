@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:01 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/04 00:10:07 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/08 16:46:00 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	ParseData::pack_line()
 			comment_flag = 1;
 		if (comment_flag == 0)
 			buffer += *it;
+	}
+	if (buffer.size())
+	{
+		this->board_list.push_back(buffer);
+		buffer = "";
+		comment_flag = 0;
 	}
 }
 
