@@ -4,3 +4,4 @@ src/*.o
 test/*
 .DS_Store
 *.swp
+generator
