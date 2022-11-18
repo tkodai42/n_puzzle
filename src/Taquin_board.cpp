@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/18 22:03:23 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/19 00:02:29 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	Taquin::generate_goal_board()
 	int					tmp_x;
 	int					tmp_y;
 	int					next_flag;
+
+	/* solve order */
+	std::vector<int>	order_sep_vec;
+	std::vector<int>	order_side_vec;
+						order_side_vec.reserve(limit);
 	
 	this->goal_board.assign(limit, 0);
 	this->goal_board_xy.resize(limit);//xy
@@ -65,6 +70,7 @@ void	Taquin::generate_goal_board()
 
 		goal_board_xy[i] = std::make_pair(x, y);
 		goal_board_snake[i - 1] = std::make_pair(x, y);
+		order_side_vec.push_back(y * this->size + x);
 
 		next_flag = 0;
 		tmp_x = x + move_x;

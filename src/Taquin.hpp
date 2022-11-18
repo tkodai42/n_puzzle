@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/03 23:48:40 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/19 00:02:27 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ class	Taquin
 		std::vector<INT_PAIR>			goal_board_xy;
 
 		std::vector<INT_PAIR>			goal_board_snake;
+
+		std::vector<std::vector<int> >	solve_order_board;
 		
 		//time
 		time_t							start_time;
