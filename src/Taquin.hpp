@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/19 00:02:27 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/19 14:54:53 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ class	Taquin
 		int		heuristics_improved_manhattan_distance(Node *n);
 		int		heuristics_correct_number_of_pieces(Node *n);
 		int		heuristics_euclidean_distance(Node *n);
+		int		heuristics_original(Node *n);
 
 		int		heuristics_bonus(Node *n);
 
