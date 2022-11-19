@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/19 16:21:25 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/19 16:44:23 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,10 +171,17 @@ int		Taquin::heuristics_original(Node *node)
 					break ;
 			}
 		}
-		std::cout << "xy" << x << ":" << y << std::endl;
+		std::cout << "xy" << x << ":" << y << "d" << x_tmp << ":" << y_tmp << std::endl;
 		x_tmp = x - x_tmp;
 		y_tmp = y - y_tmp;
-		v = sqrt((x_tmp * x_tmp + y_tmp * y_tmp));
+		v = sqrt((x_tmp * x_tmp + y_tmp * y_tmp)) * 10;
+		x_tmp = node->empty_x - x;
+		y_tmp = node->empty_y - y;
+		v += sqrt((x_tmp * x_tmp + y_tmp * y_tmp));
+
+		//x_tmp = correct_pos_pair.first;
+		//y_tmp = correct_pos_pair.second;
+
 	}
 
 	node->g = node->n;
