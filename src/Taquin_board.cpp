@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/26 16:15:30 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/26 16:15:56 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,6 @@ void	Taquin::generate_goal_board()
 	//original
 	order_side_vec.push_back(y * this->size + x);
 	solve_order_board.push_back(order_side_vec);
-	for (int i = 0; i < solve_order_board.size(); i++)
-	{
-		std::cout << solve_order_board[i].size() << std::endl;
-	}
 }
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)

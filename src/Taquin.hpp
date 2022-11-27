@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/19 14:54:53 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/27 16:13:36 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ class	Taquin
 		int		heuristics_original(Node *n);
 
 		int		heuristics_bonus(Node *n);
+
+		std::pair<int, int>	get_correct_pos(int num);
+		std::pair<int, int>	get_currnt_pos(int num, Node *n);
 
 		//
 		std::string		get_adopted_heuristic();
