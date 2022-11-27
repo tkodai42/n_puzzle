@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/01 16:53:01 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/28 00:04:41 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	tmp_node.id = 0;
 	tmp_node.set_empty();
 	this->evaluation(&tmp_node);
+	solved_len = 0;
 }
 
 void	Taquin::display_result(Node &node)
