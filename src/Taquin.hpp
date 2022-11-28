@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/28 00:04:14 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/28 16:29:29 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 
 #define	OPEN_NODE	1
 #define	CLOSE_NODE	0
+
+#define STEP_0_SELECT_TARGET	0
+#define STEP_1_REACH_TARGET		1
+#define STEP_2_CARRY_TARGET		2
+#define STEP_3_REACH_REVTARGET	3
+#define STEP_4_CARRY_REVTARGET	4
+#define STEP_5_REACH_GARAGE		5
+#define STEP_6_SLIDE_TWO_NUMBER	6
+#define STEP_7_SOLVE_SLIDE_PUZZLE	7
 
 class	Taquin
 {
@@ -48,9 +57,16 @@ class	Taquin
 
 		std::vector<INT_PAIR>			goal_board_snake;
 
-		//original
+		/*** original ***/
 		std::vector<std::vector<int> >	solve_order_board;
 		int								solved_len;
+		std::vector<int>				is_solved;//by index
+		int								target_id;
+		INT_PAIR						correct_xy;
+		INT_PAIR						out_size_xy;
+		INT_PAIR						garage_xy;
+		int								step;
+		std::vector<int>				target_group;
 		
 		//time
 		time_t							start_time;
@@ -92,8 +108,13 @@ class	Taquin
 
 		int		heuristics_bonus(Node *n);
 
+		//original
 		std::pair<int, int>	get_correct_pos(int num);
 		std::pair<int, int>	get_currnt_pos(int num, Node *n);
+		void				step_select_target(Node *node);
+		void				step_reach_target(Node *node);
+		void				inc_solve_len(Node *node);
+		std::pair<int, int>	index_to_xy(int index);
 
 		//
 		std::string		get_adopted_heuristic();

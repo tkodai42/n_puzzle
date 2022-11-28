@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/28 02:31:39 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/28 18:37:38 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ std::pair<int, int>	Taquin::get_correct_pos(int num)
 	return ret;
 }
 
+std::pair<int, int>	Taquin::index_to_xy(int index)
+{
+	std::pair<int, int>	ret;
+
+	ret.first = index % size;
+	ret.second = index / size;
+	return ret;
+}
+
 std::pair<int, int>	Taquin::get_currnt_pos(int num, Node *n)
 {
 	int					x;
@@ -62,80 +71,102 @@ std::pair<int, int>	Taquin::get_currnt_pos(int num, Node *n)
 	return ret;
 }
 
-int		Taquin::heuristics_original(Node *node)
-{
-	std::vector<int>	targets = solve_order_board[solved_len];
-	int					target_num;
-	int					target_pos;
-	std::pair<int, int>	target_xy;
-	int					v = 0;
-	int					x;
-	int					y;
+/***** STEP 1 *****/
 
-	//check orderd
-	for (int j = 0; j < solved_len; j++)
+void	show_xy(int x, int y)
+{
+	std::cout << "x: " << x << " y: " << y << std::endl;
+}
+void	show_pair(std::pair<int, int > &a)
+{
+	std::cout << "x: " << a.first << " y: " << a.second << std::endl;
+}
+
+int		get_dist_pair(std::pair<int, int> &a, std::pair<int, int> &b)
+{
+	return abs(a.first - b.first) + abs(a.second - b.second);
+}
+
+void	Taquin::step_reach_target(Node *node)
+{
+	std::pair<int, int> current_xy = get_currnt_pos(target_id, node);
+	int					dist;
+	std::pair<int, int> empty_xy = std::make_pair(node->empty_x, node->empty_y);
+	
+	dist = get_dist_pair(current_xy, empty_xy);
+
+	node->g = node->n;
+	node->h = dist;
+	node->w = node->g + node->h;
+	node->show();
+
+	if (dist == 1)
 	{
-		std::vector<int>	targets = solve_order_board[j];
-		for (int i = 0; i < targets.size(); i++)
+		open_pque.clear();
+		exit(0);
+	}
+}
+
+/***** STEP 0 *****/
+
+void	Taquin::inc_solve_len(Node *node)
+{
+	//increment solved_len
+	std::pair<int, int>	target_pos;
+	int					pos;
+
+	if (target_group.size() == size * size)
+	{
+		step = STEP_7_SOLVE_SLIDE_PUZZLE;
+		std::cout << "Final Step" << std::endl;
+		return ;
+	}
+
+	for (int i = 0; i < target_group.size(); i++)
+	{
+		//std::cout << group[i] << std::endl;
+		pos = target_group[i];
+		target_id = goal_board[target_group[i]]; 
+		if (node->board[pos] != target_id)
 		{
-			target_pos = targets[i];
-			target_num = goal_board[target_pos];
-			if (target_num != node->board[target_pos])
+			if (target_group.size() == 2)
 			{
-				node->g = node->n;
-				node->h = 100000000;
-				return node->w = node->g + node->h;
+				step = STEP_3_REACH_REVTARGET;
+				target_id = goal_board[target_group[1]];
+				correct_xy = index_to_xy(target_group[0]);
+				return ;
+			}
+			else
+			{
+				step = STEP_1_REACH_TARGET;
+				target_id = goal_board[target_group[0]];
+				correct_xy = index_to_xy(target_group[0]);
+				//std::cout << step << " " << target_id << std::endl;
+				return ;
 			}
 		}
 	}
+	solved_len++;
+}
 
-	//std::cout << targets.size() << std::endl;
-	for (int i = 0; i < targets.size(); i++)
+void	Taquin::step_select_target(Node *node)
+{
+	while (1)
 	{
-		target_pos = targets[i];
-		x = target_pos % size;
-		y = target_pos / size;
-		target_num = goal_board[y * size + x];
-		if (target_num == 0)
-			continue ;
-		//std::cout<< "target: " << targets[i] << " num: " << target_num << std::endl;
-		target_xy = get_currnt_pos(target_num, node);
-	//std::cout<<"target:x "<<target_xy.first<<" y: "<< target_xy.second<<std::endl;
-		v += abs(x - target_xy.first) + abs(y - target_xy.second);
+		target_group = solve_order_board[solved_len];
+		inc_solve_len(node);
+		if (step != STEP_0_SELECT_TARGET)
+			break ;
 	}
-	node->g = node->n;
-	node->h = v;
-	if (v == 0)
-	{
-		//clear open queue
-		solved_len++;
-		if (solved_len == solve_order_board.size())
-			;
-		else
-			heuristics_original(node);
-	}
-	node->show();
-	//exit(0);
-	return node->w = node->g + node->h;
+}
 
+int		Taquin::heuristics_original(Node *node)
+{
+	//distribute step
+	if (step == STEP_0_SELECT_TARGET)
+		step_select_target(node);
+	if (step == STEP_1_REACH_TARGET)
+		step_reach_target(node);
 
-	std::pair<int, int>	correct_pos_pair;
-	int					num;
-
-	for (int y = 0; y < size; y++)
-	{
-		for (int x = 0; x < size; x++)
-		{
-			num = node->board[y * size + x];
-			if (num == 0) //is space
-				continue ;
-			correct_pos_pair = goal_board_xy[num];
-			v += abs(x - correct_pos_pair.first) + abs(y - correct_pos_pair.second);
-		}
-	}
-	node->g = node->n;
-	node->h = v;
-	return node->w = node->h;
-	return node->w = node->g + node->h;
-
+	return node->w;
 }

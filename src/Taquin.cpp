@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/28 00:04:41 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/28 17:02:18 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void	Taquin::move_empty(int mx, int my)
 		new_node.id = node_vec.size();//latest node
 		node_vec.push_back(new_node); //submit node
 		isOpen_vec.push_back(OPEN_NODE);//add open list
+		
+		/*** original ***/
+		//if destroy set => w = INFFFF
 
 		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
 		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
@@ -110,7 +113,6 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	tmp_node.id = 0;
 	tmp_node.set_empty();
 	this->evaluation(&tmp_node);
-	solved_len = 0;
 }
 
 void	Taquin::display_result(Node &node)
