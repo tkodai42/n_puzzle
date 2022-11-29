@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/28 16:29:29 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/29 16:52:48 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class	Taquin
 		Option							*setting;
 
 		/***   A*   ***/
+		typedef std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_queue_type; 
 		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
 		std::map<long long, int>														hash_map;
 		std::vector<Node>																node_vec;
@@ -67,6 +68,7 @@ class	Taquin
 		INT_PAIR						garage_xy;
 		int								step;
 		std::vector<int>				target_group;
+		int								update_step;
 		
 		//time
 		time_t							start_time;
@@ -113,6 +115,7 @@ class	Taquin
 		std::pair<int, int>	get_currnt_pos(int num, Node *n);
 		void				step_select_target(Node *node);
 		void				step_reach_target(Node *node);
+		void				step_carry_target(Node *node);
 		void				inc_solve_len(Node *node);
 		std::pair<int, int>	index_to_xy(int index);
 

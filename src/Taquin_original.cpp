@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/28 18:37:38 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/29 17:29:01 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ std::pair<int, int>	Taquin::get_currnt_pos(int num, Node *n)
 	return ret;
 }
 
-/***** STEP 1 *****/
 
 void	show_xy(int x, int y)
 {
@@ -87,6 +86,54 @@ int		get_dist_pair(std::pair<int, int> &a, std::pair<int, int> &b)
 	return abs(a.first - b.first) + abs(a.second - b.second);
 }
 
+int		is_attached(std::pair<int, int> &a, std::pair<int, int> &b)
+{
+	if (abs(a.first - b.first) <= 1)
+		return 1;
+	return (abs(a.second - b.second) <= 1);
+}
+
+/***** STEP 2 *****/
+
+void	Taquin::step_carry_target(Node *node)
+{
+	std::cout << "STEP 2" << std::endl;
+	node->show();
+	std::pair<int, int> current_xy = get_currnt_pos(target_id, node);
+	std::pair<int, int> empty_xy = std::make_pair(node->empty_x, node->empty_y);
+	
+	//0 is around target
+	if (is_attached(current_xy, empty_xy) == 0)
+	{
+		node->g = node->n;
+		node->h = 100000000;
+		node->w = node->g + node->h;
+		return ;
+	}
+	//target to correct pos
+	int dist = get_dist_pair(current_xy, correct_xy);
+
+	if (dist == 0)
+	{
+		open_pque = open_queue_type();//init
+		node->g = 0;//node->n;
+		node->h = 10;
+		node->w = node->g + node->h;
+		step = STEP_0_SELECT_TARGET;
+		update_step = 1;
+		is_solved[target_id] = 1;
+		return ;
+	}
+
+	node->g = node->n;
+	node->g = 0;
+	node->h = dist;
+	node->w = node->g + node->h;
+	//exit(0);
+}
+
+/***** STEP 1 *****/
+
 void	Taquin::step_reach_target(Node *node)
 {
 	std::pair<int, int> current_xy = get_currnt_pos(target_id, node);
@@ -98,12 +145,14 @@ void	Taquin::step_reach_target(Node *node)
 	node->g = node->n;
 	node->h = dist;
 	node->w = node->g + node->h;
-	node->show();
+	//node->show();
 
 	if (dist == 1)
 	{
-		open_pque.clear();
-		exit(0);
+		//open_pque.clear();
+		open_pque = open_queue_type();
+		step = STEP_2_CARRY_TARGET;
+		update_step = 1;
 	}
 }
 
@@ -124,7 +173,7 @@ void	Taquin::inc_solve_len(Node *node)
 
 	for (int i = 0; i < target_group.size(); i++)
 	{
-		//std::cout << group[i] << std::endl;
+		std::cout << target_group[i] << std::endl;
 		pos = target_group[i];
 		target_id = goal_board[target_group[i]]; 
 		if (node->board[pos] != target_id)
@@ -146,6 +195,9 @@ void	Taquin::inc_solve_len(Node *node)
 			}
 		}
 	}
+	//set
+	for (int i = 0; i < target_group.size(); i++)
+		is_solved[target_group[i]] = 1;
 	solved_len++;
 }
 
@@ -167,6 +219,9 @@ int		Taquin::heuristics_original(Node *node)
 		step_select_target(node);
 	if (step == STEP_1_REACH_TARGET)
 		step_reach_target(node);
-
+	if (step == STEP_2_CARRY_TARGET)
+		step_carry_target(node);
+	if (step == STEP_3_REACH_REVTARGET)
+		;
 	return node->w;
 }
