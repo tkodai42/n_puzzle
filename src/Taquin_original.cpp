@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/29 17:29:01 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/29 17:37:49 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,16 +173,33 @@ void	Taquin::inc_solve_len(Node *node)
 
 	for (int i = 0; i < target_group.size(); i++)
 	{
-		std::cout << target_group[i] << std::endl;
+		//std::cout << target_group[i] << std::endl;
 		pos = target_group[i];
 		target_id = goal_board[target_group[i]]; 
 		if (node->board[pos] != target_id)
 		{
 			if (target_group.size() == 2)
 			{
+				// ...5. -> ...45  ...AC
+				// ...4.    .....  ...B.
+
+				// set A
 				step = STEP_3_REACH_REVTARGET;
 				target_id = goal_board[target_group[1]];
 				correct_xy = index_to_xy(target_group[0]);
+
+				// set C
+				garage_xy = index_to_xy(target_group[1]);
+
+				// set B
+				{
+					std::vector<>
+				}
+
+				//unlock
+				is_solved[target_group[0]] = 0;
+				is_solved[target_group[1]] = 0;
+				exit(0);
 				return ;
 			}
 			else
