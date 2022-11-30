@@ -16,7 +16,7 @@
 
      -f4   Euclidean-distance
 
-     -f5   Search bogo => ...random
+     -f5   Original sort
 
      -f6   Uniform Cost
 
