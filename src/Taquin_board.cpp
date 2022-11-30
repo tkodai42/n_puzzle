@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/03 23:51:20 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/29 17:16:38 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ void	Taquin::generate_goal_board()
 	int					tmp_x;
 	int					tmp_y;
 	int					next_flag;
+
+	/* solve order */
+	std::vector<int>	order_sep_vec;
+	std::vector<int>	order_side_vec;
+						order_side_vec.reserve(limit);
 	
 	this->goal_board.assign(limit, 0);
 	this->goal_board_xy.resize(limit);//xy
 	this->goal_board_snake.resize(limit);//xy
 	check.assign(limit, 0);
+
 
 	int		i = 1;
 
@@ -65,6 +71,8 @@ void	Taquin::generate_goal_board()
 
 		goal_board_xy[i] = std::make_pair(x, y);
 		goal_board_snake[i - 1] = std::make_pair(x, y);
+		//original
+		order_side_vec.push_back(y * this->size + x);
 
 		next_flag = 0;
 		tmp_x = x + move_x;
@@ -79,6 +87,28 @@ void	Taquin::generate_goal_board()
 			set_next_xy(move_x, move_y);
 			tmp_x = x + move_x;
 			tmp_y = y + move_y;
+			//original
+			if (i < limit - 8)
+			{
+				std::vector<int>	group;
+				//4 => 1, 3
+				//5 => 1, 1, 3
+				for (int j = 0; j < order_side_vec.size(); j++)
+				{
+					group.push_back(order_side_vec[j]);
+					if (order_side_vec.size() - j <= 2)
+						;
+					else
+					{
+						solve_order_board.push_back(group);
+						group.clear();
+					}
+				}
+				solve_order_board.push_back(group);
+				group.clear();
+				//solve_order_board.push_back(order_side_vec);
+				order_side_vec.clear();
+			}
 		}
 		x = tmp_x;
 		y = tmp_y;
@@ -86,6 +116,20 @@ void	Taquin::generate_goal_board()
 	// set 0
 	goal_board_xy[0] = std::make_pair(x, y);
 	goal_board_snake[i - 1] = std::make_pair(x, y);
+	//original
+	order_side_vec.push_back(y * this->size + x);
+	solve_order_board.push_back(order_side_vec);
+
+	for (int i = 0; i < solve_order_board.size(); i++)
+	{
+		std::cout << solve_order_board[i].size() << std::endl;
+	}
+	/*** init original ***/
+	step = STEP_0_SELECT_TARGET;
+	is_solved.assign(size * size, 0);
+	solved_len = 0;
+
+	//exit(0);
 }
 
 void	Taquin::show_board(std::vector<int> &board, Node *node)

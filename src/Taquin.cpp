@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/01 16:53:01 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:45:10 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,25 @@
 
 void	Taquin::move_empty(int mx, int my)
 {
-	int			empty_pos = this->current->empty_y * size + this->current->empty_x;
-	int			target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
-	int			target_num = current->board[target_pos];
+	//current->show();
+	empty_pos = this->current->empty_y * size + this->current->empty_x;
+	target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
+	target_num = current->board[target_pos];
+	empty_xy = index_to_xy(empty_pos);
+	target_xy = index_to_xy(target_pos);
 	long long 	new_hash = 0;
 
 	std::map<long long, int>::iterator it;
 	std::map<long long, int>::iterator ite = hash_map.end();;
+
+	//only_original
+	if (setting->option_bit & BIT_ORIGINAL)
+	{
+		if (is_solved[target_num] == 1)
+		{
+			return ;
+		}
+	}
 	
 	//swap
 	new_hash = zh.update_hash(current->hash, current->board, empty_pos, target_num); //update empty -> target
@@ -57,6 +69,9 @@ void	Taquin::move_empty(int mx, int my)
 		new_node.id = node_vec.size();//latest node
 		node_vec.push_back(new_node); //submit node
 		isOpen_vec.push_back(OPEN_NODE);//add open list
+		
+		/*** original ***/
+		//if destroy set => w = INFFFF
 
 		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
 		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
@@ -72,15 +87,26 @@ void	Taquin::expansion()
 {
 	this->current->n++;
 	this->current->parent_id = this->current->id;
+	empty_pos = this->current->empty_y * size + this->current->empty_x;
+
 	//move	
+	update_step = 0;
 	if (current->empty_x != 0)			//LEFT
+	{
 		move_empty(-1, 0);
-	if (current->empty_x != size - 1)	//RIGHT
+	}
+	if (update_step == 0 && current->empty_x != size - 1)	//RIGHT
+	{
 		move_empty(1, 0);
-	if (current->empty_y != 0)			//UP
+	}
+	if (update_step == 0 && current->empty_y != 0)			//UP
+	{
 		move_empty(0, -1);
-	if (current->empty_y != size - 1)	//DOWN
+	}
+	if (update_step == 0 && current->empty_y != size - 1)	//DOWN
+	{
 		move_empty(0, 1);
+	}
 }
 
 void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
@@ -114,8 +140,8 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 
 void	Taquin::display_result(Node &node)
 {
-	show_path(&node);
 	this->end_time = clock();
+	show_path(&node);
 
 	std::cout << "heuristics    : " << get_adopted_heuristic() << std::endl;
 	if (setting->option_bit & BIT_GREEDY)

@@ -6,15 +6,39 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 01:31:35 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/30 15:44:16 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Taquin.hpp"
 
+void	show_xy(std::pair<int, int> x)
+{
+	std::cout << "x:" << x.first << " y:" << x.second << std::endl;
+}
+
 /*
  *	SEARCH_MANHATTAN_DISTANCE
  */
+int		Taquin::heuristics_manhattan_distance_2(Node *node)
+{
+	int					old_h;
+	int					new_h;
+	std::pair<int, int>	correct_pos_pair;
+
+	correct_pos_pair = goal_board_xy[target_num];
+	old_h = abs(target_xy.first - correct_pos_pair.first)
+			+ abs(target_xy.second - correct_pos_pair.second);	
+	new_h = abs(empty_xy.first - correct_pos_pair.first)
+			+ abs(empty_xy.second - correct_pos_pair.second);	
+	
+	node->g = node->n;
+	node->h -= old_h;
+	node->h += new_h;
+
+	return heuristics_bonus(node);
+}
+
 int		Taquin::heuristics_manhattan_distance(Node *node)
 {
 	int					v = 0;
@@ -41,6 +65,33 @@ int		Taquin::heuristics_manhattan_distance(Node *node)
 /*
  *	SEARCH_IMPROVED_MANHATTAN_DISTANCE
  */
+
+int		Taquin::heuristics_improved_manhattan_distance_2(Node *node)
+{
+	int					old_h;
+	int					new_h;
+	int					x_dist;
+	int					y_dist;
+
+	std::pair<int, int>	correct_pos_pair;
+
+	correct_pos_pair = goal_board_xy[target_num];
+
+	x_dist = abs(target_xy.first - correct_pos_pair.first);
+	y_dist = abs(target_xy.second - correct_pos_pair.second);
+	old_h = x_dist * x_dist + y_dist * y_dist;
+
+	x_dist = abs(empty_xy.first - correct_pos_pair.first);
+	y_dist = abs(empty_xy.second - correct_pos_pair.second);
+	new_h = x_dist * x_dist + y_dist * y_dist;
+
+	node->g = node->n;
+	node->h -= old_h;
+	node->h += new_h;
+
+	return heuristics_bonus(node);
+}
+
 int		Taquin::heuristics_improved_manhattan_distance(Node *node)
 {
 	int					v = 0;
@@ -152,6 +203,7 @@ std::string	Taquin::get_adopted_heuristic()
 	heuristics_bits.push_back(BIT_IMPROVED_MANHATTAN_DISTANCE);
 	heuristics_bits.push_back(BIT_CORRECT_NUMBER_OF_PIECES);
 	heuristics_bits.push_back(BIT_EUCLIDEAN_DISTANCE);
+	heuristics_bits.push_back(BIT_ORIGINAL);
 	heuristics_bits.push_back(BIT_GREEDY_IMD);
 	heuristics_bits.push_back(BIT_UNIFORM_COST);
 	heuristics_bits.push_back(BIT_GREEDY);
@@ -166,6 +218,22 @@ std::string	Taquin::get_adopted_heuristic()
 
 int		Taquin::evaluation(Node *node)
 {
+	if (node->n > 0)
+	{
+		// n > 0
+		if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
+			return heuristics_manhattan_distance_2(node);
+		if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
+			return heuristics_improved_manhattan_distance_2(node);
+	/*	if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
+			return heuristics_correct_number_of_pieces_2(node);
+		if (setting->option_bit & BIT_EUCLIDEAN_DISTANCE)
+			return heuristics_euclidean_distance_2(node);
+		if (setting->option_bit & BIT_ORIGINAL)
+			return heuristics_original_2(node);*/
+	}
+
+	//first evaluation
 	if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
 		return heuristics_manhattan_distance(node);
 	if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
@@ -174,6 +242,9 @@ int		Taquin::evaluation(Node *node)
 		return heuristics_correct_number_of_pieces(node);
 	if (setting->option_bit & BIT_EUCLIDEAN_DISTANCE)
 		return heuristics_euclidean_distance(node);
-
+	if (setting->option_bit & BIT_ORIGINAL)
+		return heuristics_original(node);
+	
 	return heuristics_manhattan_distance(node);
 }
+
