@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/29 17:27:05 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/30 14:14:28 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	Taquin::move_empty(int mx, int my)
 {
-	int			empty_pos = this->current->empty_y * size + this->current->empty_x;
-	int			target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
-	int			target_num = current->board[target_pos];
+	empty_pos = this->current->empty_y * size + this->current->empty_x;
+	target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
+	target_num = current->board[target_pos];
+	empty_xy = index_to_xy(empty_pos);
+	target_xy = index_to_xy(target_pos);
 	long long 	new_hash = 0;
 
 	std::map<long long, int>::iterator it;
@@ -82,6 +84,8 @@ void	Taquin::expansion()
 {
 	this->current->n++;
 	this->current->parent_id = this->current->id;
+	empty_pos = this->current->empty_y * size + this->current->empty_x;
+
 	//move	
 	update_step = 0;
 	if (current->empty_x != 0)			//LEFT

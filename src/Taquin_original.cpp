@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/29 17:37:49 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/30 13:40:31 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	Taquin::inc_solve_len(Node *node)
 
 				// set B
 				{
-					std::vector<>
+					//std::vector<>
 				}
 
 				//unlock

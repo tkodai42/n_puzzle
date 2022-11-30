@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/29 16:52:48 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/30 14:36:24 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ class	Taquin
 		//Total number of states ever selected in the "opened" set 
 		int								opened_nodes_num;
 
+		/* optimization */
+		int								empty_pos;
+		int								target_pos;
+		int								target_num;
+		std::pair<int, int>				target_xy;
+		std::pair<int, int>				empty_xy;
+
 	public:
 		ZobristHash						zh;
 		PlaySlidePuzzle					psp;
@@ -102,11 +109,15 @@ class	Taquin
 
 		//Taquin_heuristics
 		int		evaluation(Node *n);	
+
 		int		heuristics_manhattan_distance(Node *n);
 		int		heuristics_improved_manhattan_distance(Node *n);
 		int		heuristics_correct_number_of_pieces(Node *n);
 		int		heuristics_euclidean_distance(Node *n);
 		int		heuristics_original(Node *n);
+
+		int		heuristics_manhattan_distance_2(Node *n);
+		int		heuristics_improved_manhattan_distance_2(Node *n);
 
 		int		heuristics_bonus(Node *n);
 
