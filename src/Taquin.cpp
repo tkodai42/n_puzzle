@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:18:37 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:45:10 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	Taquin::move_empty(int mx, int my)
 {
+	//current->show();
 	empty_pos = this->current->empty_y * size + this->current->empty_x;
 	target_pos = (this->current->empty_y + my) * size + (this->current->empty_x + mx);
 	target_num = current->board[target_pos];
@@ -29,7 +30,6 @@ void	Taquin::move_empty(int mx, int my)
 	{
 		if (is_solved[target_num] == 1)
 		{
-			std::cout << "solved" << std::endl;
 			return ;
 		}
 	}
@@ -89,30 +89,22 @@ void	Taquin::expansion()
 	this->current->parent_id = this->current->id;
 	empty_pos = this->current->empty_y * size + this->current->empty_x;
 
-	std::cout << "PARENT " << this->current->hash << std::endl;
-
 	//move	
 	update_step = 0;
 	if (current->empty_x != 0)			//LEFT
 	{
 		move_empty(-1, 0);
-		std::cout << "UPDATE L" << update_step << std::endl;
 	}
 	if (update_step == 0 && current->empty_x != size - 1)	//RIGHT
 	{
 		move_empty(1, 0);
-		std::cout << "UPDATE R" << update_step << std::endl;
 	}
 	if (update_step == 0 && current->empty_y != 0)			//UP
 	{
-		std::cout << "size b " << open_pque.size() << std::endl;
 		move_empty(0, -1);
-		std::cout << "UPDATE U" << update_step << std::endl;
-		std::cout << "size a " << open_pque.size() << std::endl;
 	}
 	if (update_step == 0 && current->empty_y != size - 1)	//DOWN
 	{
-	std::cout << "UPDATE D" << update_step << std::endl;
 		move_empty(0, 1);
 	}
 }
@@ -148,8 +140,8 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 
 void	Taquin::display_result(Node &node)
 {
-	show_path(&node);
 	this->end_time = clock();
+	show_path(&node);
 
 	std::cout << "heuristics    : " << get_adopted_heuristic() << std::endl;
 	if (setting->option_bit & BIT_GREEDY)

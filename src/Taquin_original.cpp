@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:37:10 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:40:05 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	Taquin::step_slide_two_number(Node *node)
 	node->g = node->n;
 	node->h = v;
 	node->w = node->g + node->h;
-	node->show();
 	if (v == 0)
 	{
 		node->h = 10;
@@ -141,7 +140,6 @@ void	Taquin::step_reach_garage(Node *node)
 	node->g = node->n;
 	node->h = dist;
 	node->w = node->g + node->h;
-	//node->show();
 
 	if (dist == 0)
 	{
@@ -230,7 +228,6 @@ void	Taquin::step_reach_rev_target(Node *node)
 	node->g = node->n;
 	node->h = dist;
 	node->w = node->g + node->h;
-	//node->show();
 
 	if (dist == 1)
 	{
@@ -245,7 +242,6 @@ void	Taquin::step_reach_rev_target(Node *node)
 
 void	Taquin::step_carry_target(Node *node)
 {
-	node->show();
 	std::pair<int, int> current_xy = get_currnt_pos(target_id, node);
 	std::pair<int, int> empty_xy = std::make_pair(node->empty_x, node->empty_y);
 	
@@ -292,7 +288,6 @@ void	Taquin::step_reach_target(Node *node)
 	node->g = node->n;
 	node->h = dist;
 	node->w = node->g + node->h;
-	//node->show();
 
 	if (dist == 1)
 	{
@@ -314,8 +309,6 @@ void	Taquin::inc_solve_len(Node *node)
 	if (target_group.size() == 9)
 	{
 		step = STEP_7_SOLVE_SLIDE_PUZZLE;
-		std::cout << "Final Step" << std::endl;
-		node->show();
 
 		open_pque = open_queue_type();
 		update_step = 1;
@@ -324,22 +317,15 @@ void	Taquin::inc_solve_len(Node *node)
 
 	for (int i = 0; i < target_group.size(); i++)
 	{
-		//std::cout << target_group[i] << std::endl;
 		pos = target_group[i];
 		target_id = goal_board[target_group[i]]; 
 		if (node->board[pos] != target_id)
 		{
-			if (target_group.size() >= 6)
-			{
-				node->show();
-				exit(0);
-			}
 			if (target_group.size() == 2)
 			{
 				//unlock
 				is_solved[goal_board[target_group[0]]] = 0;
 				is_solved[goal_board[target_group[1]]] = 0;
-		if (target_id == 9 || target_id2 == 9)std::cout << "fuck" << std::endl;
 
 				// ...5. -> ...45  ...AC
 				// ...4.    .....  ...B.
@@ -414,7 +400,6 @@ void	Taquin::inc_solve_len(Node *node)
 				step = STEP_1_REACH_TARGET;
 				target_id = goal_board[target_group[0]];
 				correct_xy = index_to_xy(target_group[0]);
-				//std::cout << step << " " << target_id << std::endl;
 				return ;
 			}
 		}
@@ -423,8 +408,6 @@ void	Taquin::inc_solve_len(Node *node)
 	for (int i = 0; i < target_group.size(); i++)
 	{
 		is_solved[goal_board[target_group[i]]] = 1;
-		if (target_group[i] == 9)
-			std::cout << "putain" << std::endl;
 	}
 	solved_len++;
 }
@@ -443,7 +426,6 @@ void	Taquin::step_select_target(Node *node)
 int		Taquin::heuristics_original(Node *node)
 {
 	//distribute step
-	std::cout << "step "<< step << std::endl;
 	if (step == STEP_0_SELECT_TARGET)
 		step_select_target(node);
 	if (step == STEP_1_REACH_TARGET)
