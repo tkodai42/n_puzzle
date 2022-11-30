@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/30 14:14:28 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:18:37 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	Taquin::move_empty(int mx, int my)
 	if (setting->option_bit & BIT_ORIGINAL)
 	{
 		if (is_solved[target_num] == 1)
+		{
+			std::cout << "solved" << std::endl;
 			return ;
+		}
 	}
 	
 	//swap
@@ -86,16 +89,32 @@ void	Taquin::expansion()
 	this->current->parent_id = this->current->id;
 	empty_pos = this->current->empty_y * size + this->current->empty_x;
 
+	std::cout << "PARENT " << this->current->hash << std::endl;
+
 	//move	
 	update_step = 0;
 	if (current->empty_x != 0)			//LEFT
+	{
 		move_empty(-1, 0);
-	if (!update_step && current->empty_x != size - 1)	//RIGHT
+		std::cout << "UPDATE L" << update_step << std::endl;
+	}
+	if (update_step == 0 && current->empty_x != size - 1)	//RIGHT
+	{
 		move_empty(1, 0);
-	if (!update_step && current->empty_y != 0)			//UP
+		std::cout << "UPDATE R" << update_step << std::endl;
+	}
+	if (update_step == 0 && current->empty_y != 0)			//UP
+	{
+		std::cout << "size b " << open_pque.size() << std::endl;
 		move_empty(0, -1);
-	if (!update_step && current->empty_y != size - 1)	//DOWN
+		std::cout << "UPDATE U" << update_step << std::endl;
+		std::cout << "size a " << open_pque.size() << std::endl;
+	}
+	if (update_step == 0 && current->empty_y != size - 1)	//DOWN
+	{
+	std::cout << "UPDATE D" << update_step << std::endl;
 		move_empty(0, 1);
+	}
 }
 
 void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/30 14:36:24 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:35:32 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #define STEP_5_REACH_GARAGE		5
 #define STEP_6_SLIDE_TWO_NUMBER	6
 #define STEP_7_SOLVE_SLIDE_PUZZLE	7
+#define STEP_8_SOLVE_SLIDE_PUZZLE2	8
 
 class	Taquin
 {
@@ -63,12 +64,15 @@ class	Taquin
 		int								solved_len;
 		std::vector<int>				is_solved;//by index
 		int								target_id;
+		int								target_id2;
 		INT_PAIR						correct_xy;
+		INT_PAIR						correct_xy2;
 		INT_PAIR						out_size_xy;
 		INT_PAIR						garage_xy;
 		int								step;
 		std::vector<int>				target_group;
 		int								update_step;
+		int								garage_step;
 		
 		//time
 		time_t							start_time;
@@ -126,9 +130,14 @@ class	Taquin
 		std::pair<int, int>	get_currnt_pos(int num, Node *n);
 		void				step_select_target(Node *node);
 		void				step_reach_target(Node *node);
+		void				step_reach_rev_target(Node *node);
 		void				step_carry_target(Node *node);
+		void				step_carry_rev_target(Node *node);
+		void				step_reach_garage(Node *node);
+		void				step_slide_two_number(Node *node);
 		void				inc_solve_len(Node *node);
 		std::pair<int, int>	index_to_xy(int index);
+		int					xy_to_index(std::pair<int, int> &a);
 
 		//
 		std::string		get_adopted_heuristic();
