@@ -8,6 +8,8 @@
 
      The options are as follows:
 
+     -d    debug
+
      -f1   The Manhattan-distance
 
      -f2   Improved Manhattan-distance
@@ -16,21 +18,14 @@
 
      -f4   Euclidean-distance
 
-     -f5   Original sort
+     -f5   original
 
-     -f6   Uniform Cost
-
-     -f7   greedy search
-
-     -f8   Original
-
-     -f9   greedy + Improved Manhattan-distance
-
-     -g    debug
+     -g    greedy search
 
      -h    HELP
 
      -p    play n_puzzle!!!
 
-     -v    visualize
+     -u    Uniform Cost
 
+     -v    visualize
