@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/30 14:37:01 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/11/30 14:44:49 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,34 +218,33 @@ std::string	Taquin::get_adopted_heuristic()
 
 int		Taquin::evaluation(Node *node)
 {
-	//first evaluation
-	if (node->n == 0)
+	if (node->n > 0)
 	{
+		// n > 0
 		if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
-			return heuristics_manhattan_distance(node);
+			return heuristics_manhattan_distance_2(node);
 		if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
-			return heuristics_improved_manhattan_distance(node);
-		if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
-			return heuristics_correct_number_of_pieces(node);
+			return heuristics_improved_manhattan_distance_2(node);
+	/*	if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
+			return heuristics_correct_number_of_pieces_2(node);
 		if (setting->option_bit & BIT_EUCLIDEAN_DISTANCE)
-			return heuristics_euclidean_distance(node);
+			return heuristics_euclidean_distance_2(node);
 		if (setting->option_bit & BIT_ORIGINAL)
-			return heuristics_original(node);
-	
-		return heuristics_manhattan_distance(node);
+			return heuristics_original_2(node);*/
 	}
-	// n > 0
-	if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
-		return heuristics_manhattan_distance_2(node);
-	if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
-		return heuristics_improved_manhattan_distance_2(node);
-/*	if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
-		return heuristics_correct_number_of_pieces_2(node);
-	if (setting->option_bit & BIT_EUCLIDEAN_DISTANCE)
-		return heuristics_euclidean_distance_2(node);
-	if (setting->option_bit & BIT_ORIGINAL)
-		return heuristics_original_2(node);*/
 
-	return heuristics_manhattan_distance_2(node);
+	//first evaluation
+	if (setting->option_bit & BIT_MANHATTAN_DISTANCE)
+		return heuristics_manhattan_distance(node);
+	if (setting->option_bit & BIT_IMPROVED_MANHATTAN_DISTANCE)
+		return heuristics_improved_manhattan_distance(node);
+	if (setting->option_bit & BIT_CORRECT_NUMBER_OF_PIECES)
+		return heuristics_correct_number_of_pieces(node);
+	if (setting->option_bit & BIT_EUCLIDEAN_DISTANCE)
+		return heuristics_euclidean_distance(node);
+	if (setting->option_bit & BIT_ORIGINAL)
+		return heuristics_original(node);
+	
+	return heuristics_manhattan_distance(node);
 }
 
