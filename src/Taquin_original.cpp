@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 14:15:37 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 03:22:31 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,77 @@ void	Taquin::step_reach_rev_target(Node *node)
 	}
 }
 
+/***** STEP EXCEPTION2 *****/
+
+void	Taquin::step_exception2(Node *node)
+{
+	int					_target_id;
+	std::pair<int, int>	_correct_xy;
+
+	_target_id = target_id2;
+	_correct_xy = correct_xy2;
+
+	std::pair<int, int> current_xy = get_currnt_pos(_target_id, node);
+	std::pair<int, int> empty_xy = std::make_pair(node->empty_x, node->empty_y);
+
+	_correct_xy = goal_board_xy[0];
+
+	//0 is around target
+	if (is_attached(current_xy, empty_xy) == 0)
+	{
+		node->g = node->n;
+		node->h = 10000000;
+		node->w = node->g + node->h;
+		return ;
+	}
+	//target to correct pos
+	int dist = get_dist_pair(current_xy, _correct_xy);
+
+	if (dist == 0)
+	{
+		open_pque = open_queue_type();//init
+		node->g = 0;//node->n;
+		node->h = 10;
+		node->w = node->g + node->h;
+		update_step = 1;
+		step = STEP_3_REACH_REVTARGET;
+		return ;
+	}
+
+	node->g = node->n;
+	node->g = 0;
+	node->h = dist;
+	node->w = node->g + node->h;
+	//exit(0);
+}
+/***** STEP EXCEPTION *****/
+
+void	Taquin::step_exception(Node *node)
+{
+	int		_target_id;
+
+	_target_id = target_id2;
+
+	std::pair<int, int> current_xy = get_currnt_pos(_target_id, node);
+	int					dist;
+	std::pair<int, int> empty_xy = std::make_pair(node->empty_x, node->empty_y);
+	
+	dist = get_dist_pair(current_xy, empty_xy);
+
+	node->g = node->n;
+	node->g = 0;
+	node->h = dist;
+	node->w = node->g + node->h;
+
+	if (dist == 1)
+	{
+		//open_pque.clear();
+		open_pque = open_queue_type();
+		step = STEP_10_EXCEPTION_ROW2;
+		update_step = 1;
+	}
+}
+
 /***** STEP 2 *****/
 
 void	Taquin::step_carry_target(Node *node)
@@ -300,6 +371,7 @@ void	Taquin::step_reach_target(Node *node)
 		update_step = 1;
 	}
 }
+
 
 /***** STEP 0 *****/
 
@@ -395,6 +467,10 @@ void	Taquin::inc_solve_len(Node *node)
 				}
 				step = STEP_3_REACH_REVTARGET;
 				update_step = 1;
+				if (i == 1)
+				{
+					step = STEP_9_EXCEPTION_ROW;
+				}
 				return ;
 			}
 			else
@@ -451,6 +527,14 @@ int		Taquin::heuristics_original(Node *node)
 	else if (step == STEP_8_SOLVE_SLIDE_PUZZLE2)
 	{
 		heuristics_manhattan_distance_2(node);
+	}
+	if (step == STEP_9_EXCEPTION_ROW)
+	{
+		step_exception(node);
+	}
+	if (step == STEP_10_EXCEPTION_ROW2)
+	{
+		step_exception2(node);
 	}
 	
 	return node->w;
