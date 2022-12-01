@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:40:05 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/01 14:15:37 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	Taquin::step_reach_garage(Node *node)
 	dist = get_dist_pair(current_xy, empty_xy);
 
 	node->g = node->n;
+	node->g = 0;
 	node->h = dist;
 	node->w = node->g + node->h;
 
@@ -226,6 +227,7 @@ void	Taquin::step_reach_rev_target(Node *node)
 	dist = get_dist_pair(current_xy, empty_xy);
 
 	node->g = node->n;
+	node->g = 0;
 	node->h = dist;
 	node->w = node->g + node->h;
 
@@ -286,6 +288,7 @@ void	Taquin::step_reach_target(Node *node)
 	dist = get_dist_pair(current_xy, empty_xy);
 
 	node->g = node->n;
+	node->g = 0;
 	node->h = dist;
 	node->w = node->g + node->h;
 
