@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 03:22:31 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 21:01:47 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,8 +467,14 @@ void	Taquin::inc_solve_len(Node *node)
 				}
 				step = STEP_3_REACH_REVTARGET;
 				update_step = 1;
-				if (i == 1)
+
+				std::pair<int, int> tmp1 = get_currnt_pos(goal_board[target_group[0]], node);
+				std::pair<int, int> tmp2 = goal_board_xy[goal_board[target_group[1]]];
+				dist = get_dist_pair(tmp1, tmp2);
+
+				if (dist <= 2)
 				{
+					garage_step = 0;
 					step = STEP_9_EXCEPTION_ROW;
 				}
 				return ;

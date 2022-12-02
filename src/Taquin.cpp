@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:45:10 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 22:03:54 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,9 @@ void	Taquin::expansion()
 
 void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 {
-	std::cout << "\n --- file ---" << std::endl;
+	std::cout << "\n ====== INPUT ======" << std::endl;
 	std::cout << input_data << std::endl;
+	std::cout << " ====================" << std::endl;
 
 	this->start_time = clock();
 	opened_nodes_num= 0;
@@ -143,15 +144,16 @@ void	Taquin::display_result(Node &node)
 	this->end_time = clock();
 	show_path(&node);
 
-	std::cout << "heuristics    : " << get_adopted_heuristic() << std::endl;
+	std::cout << "heuristics      : " << get_adopted_heuristic() << std::endl;
 	if (setting->option_bit & BIT_GREEDY)
-	std::cout << "bonus         : " << setting->option_name_map[BIT_GREEDY] << std::endl;
+	std::cout << "bonus           : " << setting->option_name_map[BIT_GREEDY] << std::endl;
 	if (setting->option_bit & BIT_UNIFORM_COST)
-	std::cout << "bonus         : " << setting->option_name_map[BIT_UNIFORM_COST] << std::endl;
-	std::cout << "open queue    : " << open_pque.size() << std::endl;
-	std::cout << "visited nodes : " << opened_nodes_num << std::endl;
-	std::cout << "nodes         : " << node_vec.size() << std::endl;
-	std::cout << "time          : " << (double)(end_time - start_time) / 1000000 << std::endl;
+	std::cout << "bonus           : " << setting->option_name_map[BIT_UNIFORM_COST] << std::endl;
+	std::cout << "open queue      : " << open_pque.size() << std::endl;
+	std::cout << "nodes evaluated : " << opened_nodes_num << std::endl;
+	std::cout << "nodes           : " << node_vec.size() << std::endl;
+	std::cout << "step            : " << node.n << std::endl;
+	std::cout << "time            : " << (double)(end_time - start_time) / 1000000 << std::endl;
 	exit(0);
 }
 
@@ -184,11 +186,11 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		{
 			continue;
 		}
-		if (setting->option_bit & BIT_DEBUG)
-		{
-			std::cout << "open: " << open_pque.size() << std::endl;
-			std::cout << "node: " << node_vec.size() << std::endl;
-		}
+		//if (setting->option_bit & BIT_DEBUG)
+		//{
+		//	std::cout << "open: " << open_pque.size() << std::endl;
+		//	std::cout << "node: " << node_vec.size() << std::endl;
+		//}
 		opened_nodes_num++;
 		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];

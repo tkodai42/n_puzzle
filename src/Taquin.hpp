@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 03:17:46 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 21:48:41 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ class	Taquin
 
 		//Taquin_board
 		void	show_board(std::vector<int> &baord, Node *n = NULL);
+		void	show_color_board(std::vector<int> &baord, Node *n = NULL);
 		void	show_path(Node *n);
 
 		//Taquin_heuristics

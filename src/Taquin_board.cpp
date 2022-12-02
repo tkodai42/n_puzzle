@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/29 17:16:38 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 21:50:21 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ void	Taquin::generate_goal_board()
 	order_side_vec.push_back(y * this->size + x);
 	solve_order_board.push_back(order_side_vec);
 
-	for (int i = 0; i < solve_order_board.size(); i++)
-	{
-		std::cout << solve_order_board[i].size() << std::endl;
-	}
+	//for (int i = 0; i < solve_order_board.size(); i++)
+	//{
+	//	std::cout << solve_order_board[i].size() << std::endl;
+	//}
 	/*** init original ***/
 	step = STEP_0_SELECT_TARGET;
 	is_solved.assign(size * size, 0);
@@ -132,18 +132,8 @@ void	Taquin::generate_goal_board()
 	//exit(0);
 }
 
-void	Taquin::show_board(std::vector<int> &board, Node *node)
+void	Taquin::show_color_board(std::vector<int> &board, Node *node)
 {
-	if (setting->option_bit & BIT_VISUALIZE)
-	{
-		for (int i = 0; i < limit; i++)
-		{
-			std::cout << board[i] << ", ";
-		}
-		std::cout << std::endl;
-		return ;
-	}
-
 	if (node)
 	{
 		std::cout
@@ -179,6 +169,20 @@ void	Taquin::show_board(std::vector<int> &board, Node *node)
 	}
 }
 
+void	Taquin::show_board(std::vector<int> &board, Node *node)
+{
+	if (~setting->option_bit & BIT_VISUALIZE)
+	{
+		for (int i = 0; i < limit; i++)
+		{
+			std::cout << board[i] << ", ";
+		}
+		std::cout << std::endl;
+		return ;
+	}
+	show_color_board(board, node);
+}
+
 void	Taquin::show_path(Node *node)
 {
 	std::vector<int>	path_id;
@@ -201,4 +205,7 @@ void	Taquin::show_path(Node *node)
 		tmp = node_vec[*r_it];
 		show_board(tmp.board, &tmp);
 	}
+
+	if (setting->option_bit & BIT_DEBUG)
+		show_color_board(node->board, node);
 }
