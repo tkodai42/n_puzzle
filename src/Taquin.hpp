@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:39:15 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 03:17:46 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 #define STEP_6_SLIDE_TWO_NUMBER	6
 #define STEP_7_SOLVE_SLIDE_PUZZLE	7
 #define STEP_8_SOLVE_SLIDE_PUZZLE2	8
+#define STEP_9_EXCEPTION_ROW		9
+#define STEP_10_EXCEPTION_ROW2		10
 
 class	Taquin
 {
@@ -135,9 +137,12 @@ class	Taquin
 		void				step_carry_rev_target(Node *node);
 		void				step_reach_garage(Node *node);
 		void				step_slide_two_number(Node *node);
+		void				step_exception(Node *node);
+		void				step_exception2(Node *node);
 		void				inc_solve_len(Node *node);
 		std::pair<int, int>	index_to_xy(int index);
 		int					xy_to_index(std::pair<int, int> &a);
+		int					exception_row;
 
 		//
 		std::string		get_adopted_heuristic();
