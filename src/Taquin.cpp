@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 21:52:48 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 22:03:54 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,16 +144,16 @@ void	Taquin::display_result(Node &node)
 	this->end_time = clock();
 	show_path(&node);
 
-	std::cout << "heuristics    : " << get_adopted_heuristic() << std::endl;
+	std::cout << "heuristics      : " << get_adopted_heuristic() << std::endl;
 	if (setting->option_bit & BIT_GREEDY)
-	std::cout << "bonus         : " << setting->option_name_map[BIT_GREEDY] << std::endl;
+	std::cout << "bonus           : " << setting->option_name_map[BIT_GREEDY] << std::endl;
 	if (setting->option_bit & BIT_UNIFORM_COST)
-	std::cout << "bonus         : " << setting->option_name_map[BIT_UNIFORM_COST] << std::endl;
-	std::cout << "open queue    : " << open_pque.size() << std::endl;
-	std::cout << "visited nodes : " << opened_nodes_num << std::endl;
-	std::cout << "nodes         : " << node_vec.size() << std::endl;
-	std::cout << "step          : " << node.n << std::endl;
-	std::cout << "time          : " << (double)(end_time - start_time) / 1000000 << std::endl;
+	std::cout << "bonus           : " << setting->option_name_map[BIT_UNIFORM_COST] << std::endl;
+	std::cout << "open queue      : " << open_pque.size() << std::endl;
+	std::cout << "nodes evaluated : " << opened_nodes_num << std::endl;
+	std::cout << "nodes           : " << node_vec.size() << std::endl;
+	std::cout << "step            : " << node.n << std::endl;
+	std::cout << "time            : " << (double)(end_time - start_time) / 1000000 << std::endl;
 	exit(0);
 }
 
