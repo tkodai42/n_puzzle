@@ -120,10 +120,10 @@ void	Taquin::generate_goal_board()
 	order_side_vec.push_back(y * this->size + x);
 	solve_order_board.push_back(order_side_vec);
 
-	for (int i = 0; i < solve_order_board.size(); i++)
-	{
-		std::cout << solve_order_board[i].size() << std::endl;
-	}
+	//for (int i = 0; i < solve_order_board.size(); i++)
+	//{
+	//	std::cout << solve_order_board[i].size() << std::endl;
+	//}
 	/*** init original ***/
 	step = STEP_0_SELECT_TARGET;
 	is_solved.assign(size * size, 0);

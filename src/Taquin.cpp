@@ -111,8 +111,9 @@ void	Taquin::expansion()
 
 void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 {
-	std::cout << "\n --- file ---" << std::endl;
+	std::cout << "\n ====== INPUT ======" << std::endl;
 	std::cout << input_data << std::endl;
+	std::cout << " ====================" << std::endl;
 
 	this->start_time = clock();
 	opened_nodes_num= 0;
