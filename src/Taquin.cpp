@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/01 00:45:10 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/02 21:52:48 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	Taquin::display_result(Node &node)
 	std::cout << "open queue    : " << open_pque.size() << std::endl;
 	std::cout << "visited nodes : " << opened_nodes_num << std::endl;
 	std::cout << "nodes         : " << node_vec.size() << std::endl;
+	std::cout << "step          : " << node.n << std::endl;
 	std::cout << "time          : " << (double)(end_time - start_time) / 1000000 << std::endl;
 	exit(0);
 }
@@ -185,11 +186,11 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		{
 			continue;
 		}
-		if (setting->option_bit & BIT_DEBUG)
-		{
-			std::cout << "open: " << open_pque.size() << std::endl;
-			std::cout << "node: " << node_vec.size() << std::endl;
-		}
+		//if (setting->option_bit & BIT_DEBUG)
+		//{
+		//	std::cout << "open: " << open_pque.size() << std::endl;
+		//	std::cout << "node: " << node_vec.size() << std::endl;
+		//}
 		opened_nodes_num++;
 		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];
