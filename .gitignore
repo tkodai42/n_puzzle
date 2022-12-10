@@ -1,5 +1,6 @@
 a.out
 n_puzzle
+map/test_maps
 *.o
 objs
 test/*

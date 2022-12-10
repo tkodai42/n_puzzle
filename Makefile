@@ -50,9 +50,18 @@ re:					fclean all
 TEST_SIZE = 3
 
 run:	$(NAME) $(TESTER)
-	./$(TESTER) $(TEST_SIZE) > tester/$(TEST_SIZE).map
-	@cat tester/$(TEST_SIZE).map
-	./$(NAME) tester/$(TEST_SIZE).map
+	./$(TESTER) $(TEST_SIZE) > map/test_maps/$(TEST_SIZE).map
+	@cat map/test_maps/$(TEST_SIZE).map
+	./$(NAME) map/test_maps/$(TEST_SIZE).map
+
+define F2
+   @./$(TESTER) $(1) > map/test_maps/$(1).map
+   @echo --- generate map/test_map/$(1).map ---
+
+endef
+
+gen:	$(NAME) $(TESTER)
+	$(foreach x, 3 4 5 6 7 8 9 10 11 12 13 14 15 20 25 30 35 40 45 50, $(call F2,$(x)))
 
 $(TESTER):
 	go build tester/$@.go
