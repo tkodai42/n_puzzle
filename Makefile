@@ -1,59 +1,61 @@
 NAME = n_puzzle
-FILE3 = 3.txt
-FILE4 = 4.txt
-FILE5 = 5.txt
-FILE10 = 10.txt
-FILE11 = 11.txt
-
-SRCS = $(shell find src -type f -name "*.cpp")
-HDRS = $(shell find src -type f -name "*.hpp")
-OBJS = $(SRCS:.cpp=.o)
 TESTER = generator
 
-CXX = clang++
-#CXXFLAGS += -O2 -Wall -Wextra -Werror
-#CXXFLAGS += -lncurses
+CC = g++
 
-all		: $(NAME)
+HDRS_PATH		+= includes/
+SRCS_PATH		+= srcs/
+OBJS_PATH		+= objs/
 
-$(NAME)	:	$(OBJS)
-	$(CXX) -lncurses -o $(NAME) $(OBJS)
 
-$(OBJS)	:	$(HDRS)
+SRCS = $(shell find $(SRCS_PATH) -type f -name "*.cpp" | sed 's!^.*/!!')
+vpath %.cpp $(SRCS_PATH)
 
-clean	:
-	rm -rf $(OBJS)
 
-fclean	:	clean
-	rm -f $(NAME) $(TESTER)
+HDRS = $(shell find $(HDRS_PATH) -type f -name "*.hpp" | sed 's!^.*/!!')
+vpath %.hpp $(HDRS_PATH)
 
-re		:	fclean all
+OBJS		+= $(addprefix $(OBJS_PATH), $(SRCS:.cpp=.o))
 
-gen		:
-	python	gen.py 3 > test/${FILE3}
-	python	gen.py 4 > test/${FILE4}
-	python	gen.py 5 > test/${FILE5}
-	python	gen.py 10 > test/${FILE10}
-	python	gen.py 11 > test/${FILE11}
+#CFLAGS		+= -Wall
+#CFLAGS		+= -Werror
+#CFLAGS		+= -Wextra
 
-3		:	all 
-	./${NAME}	test/${FILE3}
+CPPFLAGS	+= -I $(HDRS_PATH)
 
-33		:	all
-	python	gen.py 3 > test/${FILE3}
-	@cat test/$(FILE3)
-	./${NAME}	test/${FILE3}
+all:				$(NAME)
 
-4		:	all 
-	./${NAME}	test/${FILE4}
+$(NAME):			$(LIBFT_NAME) $(OBJS)
+					$(CC) -lncurses $(OBJS) -o $@
 
-run 	: $(NAME) $(TESTER)
-	./$(TESTER) $(ARG) > test/$(FILE$(ARG))
-	@cat test/$(FILE${ARG})
-	./${NAME} test/${FILE$(ARG)}
+$(OBJS_PATH)%.o:	%.cpp
+					$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+$(OBJS):			Makefile $(HDRS) | $(OBJS_PATH)
+
+$(OBJS_PATH):
+					mkdir -p $@
+
+clean:
+					$(RM) -r $(OBJS_PATH)
+
+fclean:				clean
+					$(RM) $(NAME)
+					$(RM) $(TESTER)
+
+re:					fclean all
+
+#===== TEST =====#
+
+TEST_SIZE = 3
+
+run:	$(NAME) $(TESTER)
+	./$(TESTER) $(TEST_SIZE) > tester/$(TEST_SIZE).map
+	@cat tester/$(TEST_SIZE).map
+	./$(NAME) tester/$(TEST_SIZE).map
 
 $(TESTER):
-	go build test/$@.go
+	go build tester/$@.go
 
 define F
    @echo ==========================================
@@ -69,3 +71,5 @@ xs :=  $(shell find map/invalid -type f -name "*.map")
 map:	all
 	$(foreach x,$(xs),$(call F,$(x)))
 	@echo ==========================================
+
+.PHONY:				all clean fclean re
