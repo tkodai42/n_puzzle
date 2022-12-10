@@ -1,6 +1,7 @@
 a.out
 n_puzzle
-src/*.o
+*.o
+objs
 test/*
 .DS_Store
 *.swp
