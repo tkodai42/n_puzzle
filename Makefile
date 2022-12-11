@@ -15,16 +15,16 @@ vpath %.hpp $(HDRS_PATH)
 
 OBJS		+= $(addprefix $(OBJS_PATH), $(SRCS:.cpp=.o))
 
-#CFLAGS		+= -Wall
-#CFLAGS		+= -Werror
-#CFLAGS		+= -Wextra
+CFLAGS		+= -Wall
+CFLAGS		+= -Werror
+CFLAGS		+= -Wextra
 
 CPPFLAGS	+= -I $(HDRS_PATH)
 
 all:				$(NAME)
 
 $(NAME):			$(LIBFT_NAME) $(OBJS)
-					$(CC) -lncurses $(OBJS) -o $@
+					$(CC) $(CFLAGS) -lncurses $(OBJS) -o $@
 
 $(OBJS_PATH)%.o:	%.cpp
 					$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 21:01:47 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/11 18:29:40 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,7 +390,7 @@ void	Taquin::inc_solve_len(Node *node)
 		return ;
 	}
 
-	for (int i = 0; i < target_group.size(); i++)
+	for (unsigned int i = 0; i < target_group.size(); i++)
 	{
 		pos = target_group[i];
 		target_id = goal_board[target_group[i]]; 
@@ -438,7 +438,7 @@ void	Taquin::inc_solve_len(Node *node)
 					candidates_x[3] = center_x + 1;
 					candidates_y[3] = center_y;
 					
-					for (int i = 0; i < 4; i++)
+					for (unsigned int i = 0; i < 4; i++)
 					{
 						candidate_x = candidates_x[i];
 						candidate_y = candidates_y[i];
@@ -490,7 +490,7 @@ void	Taquin::inc_solve_len(Node *node)
 		}
 	}
 	//set
-	for (int i = 0; i < target_group.size(); i++)
+	for (unsigned int i = 0; i < target_group.size(); i++)
 	{
 		is_solved[goal_board[target_group[i]]] = 1;
 	}
