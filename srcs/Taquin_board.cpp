@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 21:50:21 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/11 18:27:27 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	Taquin::generate_goal_board()
 				std::vector<int>	group;
 				//4 => 1, 3
 				//5 => 1, 1, 3
-				for (int j = 0; j < order_side_vec.size(); j++)
+				for (unsigned long j = 0; j < order_side_vec.size(); j++)
 				{
 					group.push_back(order_side_vec[j]);
 					if (order_side_vec.size() - j <= 2)

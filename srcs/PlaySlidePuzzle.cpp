@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:56:35 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/01 16:49:49 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/11 18:26:51 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		PlaySlidePuzzle::can_move(int x, int y, std::vector<int> board)
 	if (x_pos < 0 || y_pos < 0 || size <= y_pos || size <= x_pos)
 		return 0;
 	return 1;
+	(void)board;
 }
 
 void	PlaySlidePuzzle::move_empty(int x, int y)
@@ -110,6 +111,7 @@ void	PlaySlidePuzzle::move_step(int x, int y, std::string operation)
 		move_empty(x, y);
 		add_step(&current_node);
 	}
+	(void)operation;
 }
 
 void	PlaySlidePuzzle::start(Node node)

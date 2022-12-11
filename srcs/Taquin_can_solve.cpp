@@ -9,13 +9,13 @@ void	Taquin::can_solve(std::vector<int> _board, int size)
 
 	_check_board = _board;
 	//search
-	for (int i = 0; i < _board.size(); i++)
+	for (unsigned int i = 0; i < _board.size(); i++)
 	{
 		num = goal_board[i];
 		if (_board[i] != num)
 		{
 			//search target
-			for (tag_index = i; tag_index < _board.size(); tag_index++)
+			for (tag_index = i; (unsigned int)tag_index < _board.size(); tag_index++)
 			{
 				if (num == _board[tag_index])
 					break;
@@ -32,7 +32,7 @@ void	Taquin::can_solve(std::vector<int> _board, int size)
 	int _g_0_x;
 	int _g_0_y;
 
-	for (int i = 0; i < _board.size(); i++)
+	for (unsigned int i = 0; i < _board.size(); i++)
 	{
 		if (_check_board[i] == 0)
 		{
