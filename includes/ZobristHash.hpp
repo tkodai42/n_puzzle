@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:32 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/27 17:46:38 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/11 18:45:23 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ class	ZobristHash
 			this->hand_num = hand_num;
 			this->zobrist_table.resize(board_len * hand_num);
 
-			srand((time(NULL)));
+			//srand((time(NULL)));
 			for (int y = 0; y < this->board_len; y++)
 			{
 				for (int x = 0; x < hand_num; x++)
