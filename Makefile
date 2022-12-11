@@ -7,10 +7,8 @@ HDRS_PATH		+= includes/
 SRCS_PATH		+= srcs/
 OBJS_PATH		+= objs/
 
-
 SRCS = $(shell find $(SRCS_PATH) -type f -name "*.cpp" | sed 's!^.*/!!')
 vpath %.cpp $(SRCS_PATH)
-
 
 HDRS = $(shell find $(HDRS_PATH) -type f -name "*.hpp" | sed 's!^.*/!!')
 vpath %.hpp $(HDRS_PATH)
