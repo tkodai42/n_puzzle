@@ -2,6 +2,7 @@ a.out
 n_puzzle
 map/test_maps
 *.o
+file
 objs
 test/*
 .DS_Store

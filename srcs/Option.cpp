@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/11/18 19:43:58 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/11 13:17:55 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	Option::generate_bit_map()
 	regist_map("g", BIT_GREEDY, "greedy search");
 	regist_map("p", BIT_PLAY_GAME, "play n_puzzle!!!");
 	regist_map("v", BIT_VISUALIZE, "visualize");
-	regist_map("d", BIT_DEBUG, "debug");
+	regist_map("d", BIT_DEBUG, "debug: display board");
 }
 
 void	Option::man()
@@ -112,9 +112,12 @@ void	Option::man()
 		std::cout
 			<< "     -" << std::left << std::setw(5) << it->first
 			<< option_name_map[it->second] << std::endl;
-
-		std::cout << std::endl;
 	}
+	std::cout << std::endl;
+	std::cout << " make gen:   create maps(size 3 ~ 50)" << std::endl;
+	std::cout << " make map:   check invalid maps" << std::endl;
+	std::cout << " ARG=${FILE_NAME}; ./generator ${MAP_SIZE} > ${ARG}; ./n_puzzle ${ARG}" << std::endl;
+
 }
 
 void	Option::put_manual()

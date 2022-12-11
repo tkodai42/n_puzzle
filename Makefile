@@ -68,9 +68,10 @@ $(TESTER):
 
 define F
    @echo ==========================================
-   @echo [input file] $(1)
+   @echo ">> [input file] $(1)"
    @cat $(1)
-   @echo [execute]
+   @echo
+   @echo ">> [execute]"
    @./${NAME} $(1)
 
 endef
@@ -82,3 +83,5 @@ map:	all
 	@echo ==========================================
 
 .PHONY:				all clean fclean re
+
+# ./generator $(NUM) > $(file) ; ./n_puzzle $(file)
