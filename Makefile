@@ -66,6 +66,7 @@ $(TESTER):
 
 define F
    @echo ==========================================
+   @echo
    @echo ">> [input file] $(1)"
    @cat $(1)
    @echo
