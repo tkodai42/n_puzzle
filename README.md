@@ -29,3 +29,9 @@
      -u    Uniform Cost
 
      -v    visualize
+
+### COMPILE
+
+    make gen:   create maps(size 3 ~ 50)
+    make map:   check invalid maps
+    ARG=${FILE_NAME}; ./generator ${MAP_SIZE} > ${ARG}; ./n_puzzle ${ARG}
