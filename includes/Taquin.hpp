@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/02 21:48:41 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/12 16:47:40 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,22 @@ class	Taquin
 		Option							*setting;
 
 		/***   A*   ***/
-		typedef std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_queue_type; 
-		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
-		std::map<long long, int>														hash_map;
-		std::vector<Node>																node_vec;
-		std::vector<int>																isOpen_vec;
+		//typedef std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_queue_type; 
+		//std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
+		//std::map<long long, int>														hash_map;
+		//std::vector<Node>																node_vec;
+		//std::vector<int>																isOpen_vec;
+		
+		/***   NEW A*   ***/
+		typedef std::pair<int, std::queue<int> >			QUEUE_PAIR;
+		typedef std::map<int, std::queue<int> >::iterator	QUEUE_IT;
+
+		std::map<int, std::queue<int> >					open_pque;
+		std::map<long long, int>						hash_map;
+		std::vector<Node>								node_vec;
+		std::vector<int>								isOpen_vec;
+
+
 			
 		std::vector<int>				goal_board;
 		std::vector<INT_PAIR>			goal_board_xy;
@@ -144,6 +155,9 @@ class	Taquin
 		std::pair<int, int>	index_to_xy(int index);
 		int					xy_to_index(std::pair<int, int> &a);
 		int					exception_row;
+
+		//new
+		void				queue_push(int k, int d);
 
 		//
 		std::string		get_adopted_heuristic();

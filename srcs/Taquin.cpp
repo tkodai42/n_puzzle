@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/11 15:15:52 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/12 16:47:37 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	Taquin::move_empty(int mx, int my)
 			
 			node_vec[index] = new_node;
 			isOpen_vec[index] = OPEN_NODE;
-			open_pque.push(INT_PAIR(new_node.w, index));
+			//open_pque.push(INT_PAIR(new_node.w, index));
+			queue_push(new_node.w, index);
+			
 		}
 	}
 	else
@@ -73,7 +75,8 @@ void	Taquin::move_empty(int mx, int my)
 		/*** original ***/
 		//if destroy set => w = INFFFF
 
-		open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
+		//open_pque.push(INT_PAIR(new_node.w, new_node.id)); // submit open queue
+		queue_push(new_node.w, new_node.id);
 		hash_map.insert(HASH_PAIR(new_node.hash, new_node.id)); // submit hash
 
 		if (new_node.h == 0)
@@ -157,6 +160,24 @@ void	Taquin::display_result(Node &node)
 	exit(0);
 }
 
+void	Taquin::queue_push(int key, int id)
+{
+	QUEUE_IT	ite = open_pque.end();
+	QUEUE_IT	it = open_pque.find(key);
+
+	if (it == ite)
+	{
+		std::queue<int>	_tmp_queue;
+
+		_tmp_queue.push(id);
+		open_pque.insert(QUEUE_PAIR(key, _tmp_queue));
+	}
+	else
+	{
+		it->second.push(id);
+	}
+}
+
 void	Taquin::start(std::vector<int> _board, int _size)
 {
 	Node tmp_node;
@@ -166,7 +187,8 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	node_vec.push_back(tmp_node);
 	isOpen_vec.push_back(OPEN_NODE);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
-	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
+	//open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
+	queue_push(tmp_node.w, tmp_node.id);
 
 	if (tmp_node.h == 0)
 		display_result(tmp_node);
@@ -177,7 +199,10 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		psp.start(tmp_node);
 	}
 
-	INT_PAIR index;
+
+
+/*	INT_PAIR index;
+
 	while (!open_pque.empty())
 	{
 		index = open_pque.top();
@@ -194,6 +219,33 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		opened_nodes_num++;
 		isOpen_vec[index.second] = CLOSE_NODE;
 		tmp_node = node_vec[index.second];
+		this->current = &tmp_node;
+		expansion();
+	}
+*/
+	QUEUE_IT	it;
+	int			id;
+
+	while (!open_pque.empty())
+	{
+		it = open_pque.begin();
+		id = it->second.front();
+		it->second.pop();
+		if (it->second.empty() == 1)
+			open_pque.erase(it);
+
+		if (isOpen_vec[id] == CLOSE_NODE)
+		{
+			continue;
+		}
+		//if (setting->option_bit & BIT_DEBUG)
+		//{
+		//	std::cout << "open: " << open_pque.size() << std::endl;
+		//	std::cout << "node: " << node_vec.size() << std::endl;
+		//}
+		opened_nodes_num++;
+		isOpen_vec[id] = CLOSE_NODE;
+		tmp_node = node_vec[id];
 		this->current = &tmp_node;
 		expansion();
 	}

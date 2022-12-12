@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 16:14:42 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/11 18:29:40 by tkodai           ###   ########.fr       */
+/*   Updated: 2022/12/12 16:43:46 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void	Taquin::step_slide_two_number(Node *node)
 	{
 		node->h = 10;
 		node->w = node->g + node->h;
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		is_solved[target_id] = 1;
 		is_solved[target_id2] = 1;
 		update_step = 1;
@@ -145,7 +146,8 @@ void	Taquin::step_reach_garage(Node *node)
 	if (dist == 0)
 	{
 		//open_pque.clear();
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		step = STEP_6_SLIDE_TWO_NUMBER;
 		is_solved[target_id] = 0;
 		is_solved[target_id2] = 0;
@@ -186,7 +188,8 @@ void	Taquin::step_carry_rev_target(Node *node)
 
 	if (dist == 0)
 	{
-		open_pque = open_queue_type();//init
+		//open_pque = open_queue_type();//init
+		open_pque.clear();
 		node->g = 0;//node->n;
 		node->h = 10;
 		node->w = node->g + node->h;
@@ -234,7 +237,8 @@ void	Taquin::step_reach_rev_target(Node *node)
 	if (dist == 1)
 	{
 		//open_pque.clear();
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		step = STEP_4_CARRY_REVTARGET;
 		update_step = 1;
 	}
@@ -268,7 +272,8 @@ void	Taquin::step_exception2(Node *node)
 
 	if (dist == 0)
 	{
-		open_pque = open_queue_type();//init
+		//open_pque = open_queue_type();//init
+		open_pque.clear();
 		node->g = 0;//node->n;
 		node->h = 10;
 		node->w = node->g + node->h;
@@ -305,7 +310,8 @@ void	Taquin::step_exception(Node *node)
 	if (dist == 1)
 	{
 		//open_pque.clear();
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		step = STEP_10_EXCEPTION_ROW2;
 		update_step = 1;
 	}
@@ -331,7 +337,8 @@ void	Taquin::step_carry_target(Node *node)
 
 	if (dist == 0)
 	{
-		open_pque = open_queue_type();//init
+		//open_pque = open_queue_type();//init
+		open_pque.clear();
 		node->g = 0;//node->n;
 		node->h = 10;
 		node->w = node->g + node->h;
@@ -366,7 +373,8 @@ void	Taquin::step_reach_target(Node *node)
 	if (dist == 1)
 	{
 		//open_pque.clear();
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		step = STEP_2_CARRY_TARGET;
 		update_step = 1;
 	}
@@ -385,7 +393,8 @@ void	Taquin::inc_solve_len(Node *node)
 	{
 		step = STEP_7_SOLVE_SLIDE_PUZZLE;
 
-		open_pque = open_queue_type();
+		//open_pque = open_queue_type();
+		open_pque.clear();
 		update_step = 1;
 		return ;
 	}
