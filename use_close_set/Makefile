@@ -18,6 +18,7 @@ OBJS		+= $(addprefix $(OBJS_PATH), $(SRCS:.cpp=.o))
 CFLAGS		+= -Wall
 CFLAGS		+= -Werror
 CFLAGS		+= -Wextra
+CFLAGS		+= -O2
 
 CPPFLAGS	+= -I $(HDRS_PATH)
 
