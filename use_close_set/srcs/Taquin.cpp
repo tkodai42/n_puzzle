@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/11 15:15:52 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/04 15:29:08 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	Taquin::move_empty(int mx, int my)
 			this->evaluation(&new_node);
 			
 			node_vec[index] = new_node;
-			isOpen_vec[index] = OPEN_NODE;
+			//isOpen_vec[index] = OPEN_NODE;
+			closed_set.erase(index);
+
 			open_pque.push(INT_PAIR(new_node.w, index));
 		}
 	}
@@ -68,7 +70,7 @@ void	Taquin::move_empty(int mx, int my)
 
 		new_node.id = node_vec.size();//latest node
 		node_vec.push_back(new_node); //submit node
-		isOpen_vec.push_back(OPEN_NODE);//add open list
+		//isOpen_vec.push_back(OPEN_NODE);//add open list
 		
 		/*** original ***/
 		//if destroy set => w = INFFFF
@@ -119,7 +121,7 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	opened_nodes_num= 0;
 
 	node_vec.reserve(1000000);
-	isOpen_vec.reserve(1000000);
+	//isOpen_vec.reserve(1000000);
 
 	this->size = _size;
 	this->limit = _size * _size;
@@ -164,7 +166,7 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	init(tmp_node, _board, _size);
 
 	node_vec.push_back(tmp_node);
-	isOpen_vec.push_back(OPEN_NODE);
+	//isOpen_vec.push_back(OPEN_NODE);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
 	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
 
@@ -182,17 +184,20 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	{
 		index = open_pque.top();
 		open_pque.pop();
-		if (isOpen_vec[index.second] == CLOSE_NODE)
-		{
-			continue;
-		}
+		if (closed_set.count(index.second) != 0)
+			continue ;
+		//if (isOpen_vec[index.second] == CLOSE_NODE)
+		//{
+		//	continue;
+		//}
 		//if (setting->option_bit & BIT_DEBUG)
 		//{
 		//	std::cout << "open: " << open_pque.size() << std::endl;
 		//	std::cout << "node: " << node_vec.size() << std::endl;
 		//}
 		opened_nodes_num++;
-		isOpen_vec[index.second] = CLOSE_NODE;
+		//isOpen_vec[index.second] = CLOSE_NODE;
+		closed_set.insert(index.second);
 		tmp_node = node_vec[index.second];
 		this->current = &tmp_node;
 		expansion();

@@ -5,6 +5,8 @@ map/test_maps
 file
 objs
 test/*
+result/*
+result
 .DS_Store
 *.swp
 generator
