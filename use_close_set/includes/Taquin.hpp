@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/04 15:14:19 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:05:56 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "utils.hpp"
 #include "Option.hpp"
 #include "PlaySlidePuzzle.hpp"
+#include "Calculate.hpp"
 
 #define	OPEN_NODE	1
 #define	CLOSE_NODE	0

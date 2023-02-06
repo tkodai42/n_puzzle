@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2022/12/11 13:17:55 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/06 15:59:46 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
  *	-f5		Uniform Cost
  *	-f6		greedy search
  *	-f7		Original
+ *
+ *  -c		calculation
  *
  *	-p		can play n_puzzle!!!
  */
@@ -99,6 +101,7 @@ void	Option::generate_bit_map()
 	regist_map("p", BIT_PLAY_GAME, "play n_puzzle!!!");
 	regist_map("v", BIT_VISUALIZE, "visualize");
 	regist_map("d", BIT_DEBUG, "debug: display board");
+	regist_map("c", BIT_CALCULATION, "calculation: heuristic");
 }
 
 void	Option::man()
@@ -187,6 +190,9 @@ int		Option::start(int argc, char *argv[])
 		man();
 		throw Option::PutManualException();
 	}
+
+	if (option_bit & BIT_CALCULATION)
+		throw Option::StartCalcException();
 
 	check_option_bit();
 
