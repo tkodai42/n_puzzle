@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 02:12:55 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/07 16:25:11 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,15 @@ void	n_puzzle(int argc, char *argv[])
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		if (e.what() == std::string("Calc"))
+		{
+			Calculate	calc;
+
+			calc.start();
+		}
+		else
+			std::cout << e.what() << std::endl;
+
 	}
 }
 

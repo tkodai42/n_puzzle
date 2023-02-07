@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2022/10/31 02:09:40 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:01:45 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ class	Option
 				virtual const char* what() const throw()
 				{
 					return ("Help");
+				}
+		};
+		class	StartCalcException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{
+					return ("Calc");
 				}
 		};
 };
