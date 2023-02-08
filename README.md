@@ -30,7 +30,7 @@
 
      -v    visualize
 
-	 -o	   use open/close list
+     -o    use open/close list
 
 ### COMPILE
 
