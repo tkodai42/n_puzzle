@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/08 18:50:06 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/08 23:58:58 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 	std::cout << input_data << std::endl;
 	std::cout << " ====================" << std::endl;
 
-	this->start_time = clock();
+	//this->start_time = clock();
 	opened_nodes_num= 0;
 
 	node_vec.reserve(1000000);

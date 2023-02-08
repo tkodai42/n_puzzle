@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:56:23 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/07 16:25:11 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 00:00:13 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 #include "Taquin.hpp"
 #include "Option.hpp"
 
-void	n_puzzle(int argc, char *argv[])
+void	n_puzzle(int argc, char *argv[], time_t start_time)
 {
 	ReadFile	reader;
 	ParseData	parser;
 	Taquin		taquin;
 	Option		parserArg;
 
+	taquin.start_time = start_time;
 	if (argc < 2)
 	{
 		parserArg.put_manual();	
@@ -53,5 +54,7 @@ void	n_puzzle(int argc, char *argv[])
 
 int		main(int argc, char *argv[])
 {
-	n_puzzle(argc, argv);
+	time_t	start_time = clock();
+
+	n_puzzle(argc, argv, start_time);
 }
