@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 00:54:17 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 01:02:44 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,16 @@ void	Taquin::show_path(Node *node)
 {
 	std::vector<int>	path_id;
 	int					current_id = node->id;
+
+
+	if (DONT_DISPLAY_PATH == 1)
+	{
+		std::cout << "\n\n" << std::endl;
+		setting->option_bit |= BIT_DEBUG;
+		show_color_board(node->board, node);
+		return ;
+	}
+
 
 	while (current_id != 0)
 	{
