@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/08 17:29:07 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/08 18:50:06 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,12 +208,6 @@ void	Taquin::start(std::vector<int> _board, int _size)
 			if (closed_set.count(index.second) != 0)
 				continue ;
 		}
-
-		//if (setting->option_bit & BIT_DEBUG)
-		//{
-		//	std::cout << "open: " << open_pque.size() << std::endl;
-		//	std::cout << "node: " << node_vec.size() << std::endl;
-		//}
 		opened_nodes_num++;
 
 		/* CLOSE LIST */
@@ -224,6 +218,13 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 		tmp_node = node_vec[index.second];
 		this->current = &tmp_node;
+
+		if (setting->option_bit & BIT_DEBUG)
+		{
+			std::cout << "expanded nodes  : " << opened_nodes_num << std::endl;
+			std::cout << "nodes           : " << node_vec.size() << std::endl;
+			show_color_board(this->current->board, this->current);
+		}
 		expansion();
 	}
 
