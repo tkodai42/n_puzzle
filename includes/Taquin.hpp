@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 02:04:56 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 03:12:42 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #define	OPEN_NODE	1
 #define	CLOSE_NODE	0
 
-#define DONT_DISPLAY_PATH		0
 
 #define STEP_0_SELECT_TARGET	0
 #define STEP_1_REACH_TARGET		1
