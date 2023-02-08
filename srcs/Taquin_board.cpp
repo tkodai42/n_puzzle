@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/08 18:51:09 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 01:02:44 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void	Taquin::generate_goal_board()
 
 void	Taquin::show_color_board(std::vector<int> &board, Node *node)
 {
+	if (~setting->option_bit & BIT_DEBUG)
+		std::cout << "\x1b[0;0H" << std::endl;
 	if (node)
 	{
 		std::cout
@@ -144,12 +146,16 @@ void	Taquin::show_color_board(std::vector<int> &board, Node *node)
 	int	num;
 	int display_width;
 
-	if (size <= 3)
+	int	max_size = size * size;
+
+	if (max_size < 10)
 		display_width = 1;
-	else if (size <= 10)
+	else if (max_size < 100)
 		display_width = 2;
-	else
+	else if (max_size < 1000)
 		display_width = 3;
+	else
+		display_width = 4;
 
 	for (int y = 0; y < size; y++)
 	{
@@ -173,6 +179,12 @@ void	Taquin::show_board(std::vector<int> &board, Node *node)
 {
 	if (~setting->option_bit & BIT_VISUALIZE)
 	{
+		if (setting->option_bit & BIT_DEBUG)
+		{
+			show_color_board(board, node);
+			return ;
+		}
+
 		for (int i = 0; i < limit; i++)
 		{
 			std::cout << board[i] << ", ";
@@ -188,6 +200,16 @@ void	Taquin::show_path(Node *node)
 	std::vector<int>	path_id;
 	int					current_id = node->id;
 
+
+	if (DONT_DISPLAY_PATH == 1)
+	{
+		std::cout << "\n\n" << std::endl;
+		setting->option_bit |= BIT_DEBUG;
+		show_color_board(node->board, node);
+		return ;
+	}
+
+
 	while (current_id != 0)
 	{
 		path_id.push_back(current_id);
@@ -200,6 +222,14 @@ void	Taquin::show_path(Node *node)
 
 	Node	tmp;
 
+	std::cout << "\n ***** RESULT *****\n" << std::endl;
+
+	if (setting->option_bit & BIT_VISUALIZE)
+	{
+		//std::cout << "\x1b[0;0H" << std::endl;
+		std::cout << "\x1b[2J" << std::endl;
+	}
+
 	for (int i = 0; r_it != r_ite; r_it++, i++)
 	{
 		tmp = node_vec[*r_it];
@@ -207,5 +237,8 @@ void	Taquin::show_path(Node *node)
 	}
 
 	if (setting->option_bit & BIT_DEBUG)
+	{
+		std::cout << "\n\n" << std::endl;
 		show_color_board(node->board, node);
+	}
 }

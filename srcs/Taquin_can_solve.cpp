@@ -48,7 +48,11 @@ void	Taquin::can_solve(std::vector<int> _board, int size)
 	int	dist = abs(_b_0_x - _g_0_x) + abs(_b_0_y - _g_0_y);
 		dist = abs(dist);
 	if ((swap_count & (1 << 0)) != (dist & (1 << 0)))
+	{
+		end_time = clock();
+		std::cout << "time            : " << (double)(end_time - start_time) / 1000000 << std::endl;
 		throw Taquin::UnsolvableException();
+	}
 
 	//if (swap_count & (1 << 0))
 	//	throw Taquin::UnsolvableException();
