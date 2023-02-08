@@ -30,6 +30,8 @@
 
      -v    visualize
 
+	 -o	   use open/close list
+
 ### COMPILE
 
     make gen:   create maps(size 3 ~ 50)
