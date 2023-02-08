@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:24 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/06 16:05:56 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/08 17:17:02 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ class	Taquin
 		std::priority_queue<INT_PAIR, std::vector<INT_PAIR>, std::greater<INT_PAIR> >	open_pque; 
 		std::map<long long, int>														hash_map;
 		std::vector<Node>																node_vec;
-		//std::vector<int>																isOpen_vec;
+		std::vector<int>																isOpen_vec;
 		std::set<int>																	closed_set;
 			
 		std::vector<int>				goal_board;
