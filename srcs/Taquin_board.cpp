@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 01:02:44 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 03:15:02 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void	Taquin::show_path(Node *node)
 	int					current_id = node->id;
 
 
-	if (DONT_DISPLAY_PATH == 1)
+	if (setting->option_bit & BIT_NOT_DISPLAY)
 	{
 		std::cout << "\n\n" << std::endl;
 		setting->option_bit |= BIT_DEBUG;

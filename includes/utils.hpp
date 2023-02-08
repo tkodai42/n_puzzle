@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:58:47 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/08 17:18:19 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 03:09:36 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 
 #define TMP_CALCULATION						14
 #define TMP_USE_OPEN_VEC					15
+#define TMP_NOT_DISPLAY						16
 
 #define	BIT_MANHATTAN_DISTANCE				(1<<SEARCH_MANHATTAN_DISTANCE)	
 #define	BIT_IMPROVED_MANHATTAN_DISTANCE		(1<<SEARCH_IMPROVED_MANHATTAN_DISTANCE)
@@ -71,6 +72,7 @@
 #define BIT_DEBUG							(1<<TMP_DEBUG)
 #define BIT_CALCULATION						(1<<TMP_CALCULATION)
 #define BIT_USE_OPEN_VEC					(1<<TMP_USE_OPEN_VEC)
+#define BIT_NOT_DISPLAY						(1<<TMP_NOT_DISPLAY)
 
 extern int g_debug;
 
