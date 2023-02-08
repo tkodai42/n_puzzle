@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/06 15:59:46 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/08 17:23:06 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	Option::generate_bit_map()
 	regist_map("v", BIT_VISUALIZE, "visualize");
 	regist_map("d", BIT_DEBUG, "debug: display board");
 	regist_map("c", BIT_CALCULATION, "calculation: heuristic");
+	regist_map("o", BIT_USE_OPEN_VEC, "use open/close list");
 }
 
 void	Option::man()
