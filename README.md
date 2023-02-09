@@ -41,4 +41,5 @@
 ### VISUALIZE
 
     export SLEEP_TIME=${NUMBER(10000 ~ 100000)}
+    SLEEP_TIME=${NUMBER(10000 ~ 100000)} ./n_puzzle -v ${MAP}
 
