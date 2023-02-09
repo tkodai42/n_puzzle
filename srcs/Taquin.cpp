@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 21:57:16 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 00:58:51 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 19:41:48 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	Taquin::move_empty(int mx, int my)
 			
 			/* CLOSE LIST */
 			if (this->setting->option_bit & BIT_USE_OPEN_VEC)
-				isOpen_vec[index] = OPEN_NODE;
+				node_vec[index].is_Open = OPEN_NODE;
 
 			closed_set.erase(index);
 
@@ -77,7 +77,8 @@ void	Taquin::move_empty(int mx, int my)
 
 		/* CLOSE LIST */
 		if (this->setting->option_bit & BIT_USE_OPEN_VEC)
-			isOpen_vec.push_back(OPEN_NODE);//add open list
+			node_vec[new_node.id].is_Open = OPEN_NODE;
+			//isOpen_vec.push_back(OPEN_NODE);//add open list
 
 		
 		/*** original ***/
@@ -130,8 +131,8 @@ void	Taquin::init(Node &tmp_node, std::vector<int> &_board, int _size)
 
 	node_vec.reserve(1000000);
 	/* CLOSE LIST */
-	if (this->setting->option_bit & BIT_USE_OPEN_VEC)
-		isOpen_vec.reserve(1000000);
+	//if (this->setting->option_bit & BIT_USE_OPEN_VEC)
+	//	isOpen_vec.reserve(1000000);
 
 	this->size = _size;
 	this->limit = _size * _size;
@@ -178,7 +179,8 @@ void	Taquin::start(std::vector<int> _board, int _size)
 	node_vec.push_back(tmp_node);
 	/* CLOSE LIST */
 	if (this->setting->option_bit & BIT_USE_OPEN_VEC)
-		isOpen_vec.push_back(OPEN_NODE);
+		node_vec[tmp_node.id].is_Open = OPEN_NODE;
+	//isOpen_vec.push_back(OPEN_NODE);
 	hash_map.insert(HASH_PAIR(tmp_node.hash, tmp_node.id)); //0 is node's id
 	open_pque.push(INT_PAIR(tmp_node.w, tmp_node.id));//0 is node's id
 
@@ -200,7 +202,8 @@ void	Taquin::start(std::vector<int> _board, int _size)
 		/* CLOSE LIST */
 		if (this->setting->option_bit & BIT_USE_OPEN_VEC)
 		{
-			if (isOpen_vec[index.second] == CLOSE_NODE)
+			if (node_vec[index.second].is_Open == CLOSE_NODE)
+			//if (isOpen_vec[index.second] == CLOSE_NODE)
 				continue;
 		}
 		else
@@ -212,7 +215,10 @@ void	Taquin::start(std::vector<int> _board, int _size)
 
 		/* CLOSE LIST */
 		if (this->setting->option_bit & BIT_USE_OPEN_VEC)
-			isOpen_vec[index.second] = CLOSE_NODE;
+		{
+			node_vec[index.second].is_Open = CLOSE_NODE;
+			//isOpen_vec[index.second] = CLOSE_NODE;
+		}
 		else
 			closed_set.insert(index.second);
 
