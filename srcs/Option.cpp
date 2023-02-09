@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:28:07 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 03:12:29 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:14:14 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,14 @@ int		Option::start(int argc, char *argv[])
 	
 	std::map<std::string, int>::iterator	it; 
 	std::map<std::string, int>::iterator	ite = option_bit_map.end();
+
+	/* time */
+	const char *env_time = std::getenv("SLEEP_TIME");
+	
+	if (env_time == NULL || std::string("") == env_time)
+		sleep_time = 0;
+	else
+		sleep_time = atoi(env_time);
 
 	char 		*arg;
 	std::string	check_arg1;
