@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:24:26 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/06 16:01:45 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:05:23 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class	Option
 		int							option_bit;
 		std::map<std::string, int>	option_bit_map; //<option, bit>
 		std::map<int, std::string>	option_name_map;//<bit, option str>
+		int							sleep_time;
 
 	public:
 		Option();

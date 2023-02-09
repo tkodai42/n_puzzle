@@ -37,3 +37,8 @@
     make gen:   create maps(size 3 ~ 50)
     make map:   check invalid maps
     ARG=${FILE_NAME}; ./generator ${MAP_SIZE} > ${ARG}; ./n_puzzle ${ARG}
+
+### VISUALIZE
+
+    export SLEEP_TIME=${NUMBER(10000 ~ 100000)}
+

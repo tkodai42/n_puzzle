@@ -6,7 +6,7 @@
 /*   By: tkodai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:34:14 by tkodai            #+#    #+#             */
-/*   Updated: 2023/02/09 03:15:02 by tkodai           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:06:12 by tkodai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ void	Taquin::generate_goal_board()
 void	Taquin::show_color_board(std::vector<int> &board, Node *node)
 {
 	if (~setting->option_bit & BIT_DEBUG)
+	{
+		usleep(setting->sleep_time);
 		std::cout << "\x1b[0;0H" << std::endl;
+	}
 	if (node)
 	{
 		std::cout
