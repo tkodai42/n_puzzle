@@ -11,7 +11,7 @@ fi
 RESULT_DIR=result
 mkdir -p result
 
-make 
+make -j8
 
 python ./npuzzle-gen.py $NUM > ./$RESULT_DIR/test_file
 

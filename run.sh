@@ -6,6 +6,6 @@ then
 	NUM=$1
 fi
 
-make
+make -j8
 python tester/gen.py $NUM > map/test_maps/test_file
 ./n_puzzle -f5 -v map/test_maps/test_file
