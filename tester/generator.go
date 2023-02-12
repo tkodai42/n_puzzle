@@ -14,6 +14,10 @@ var solvable bool;
 var iterations int;
 var arrayMap []int;
 
+const COLOR_RED = "\x1b[31m"
+const COLOR_GREEN ="\x1b[32m"
+const COLOR_END = "\x1b[m"
+
 func coordToIdx(x, y int) (int) {
 	return y * size + x;
 }
@@ -91,9 +95,9 @@ func generateMap() {
 func printMap() {
 	digit := len(strconv.Itoa(size * size))
 
-	state := "solvable"
+	state := COLOR_GREEN + "solvable" + COLOR_END
 	if !solvable {
-		state = "unsolvable"
+		state = COLOR_RED + "unsolvable" + COLOR_END
 	}
 	fmt.Println("# This puzzle is", state)
 	fmt.Println(size)
