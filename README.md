@@ -31,11 +31,9 @@
 
 | heauristics | option | calculation | detail |
 | --- | --- | --- | --- | 
-| Manhattan-distance | -f1 | `abs(x1 - x2) + abs(y1 - y2)` | <img width="383" alt="Capture d’écran 2023-02-13 à 00 15 37" src="https://user-images.githubusercontent.com/60470877/218319546-202f119d-b3b0-4a1a-96f5-32b0b1636e5c.png">
- |
-| Improved Manhattan-distance | -f2 | `abs(x1 - x2) * abs(x1 - x2) + abs(y1 - y2) * abs(y1 - y2)` |
-| Euclidean distance | -f4 | `sqrt( abs(x1-x2) * abs(x1-x2) + abs(y1-y2) * abs(y1-y2) )` | <img width="252" alt="Capture d’écran 2023-02-12 à 23 52 49" src="https://user-images.githubusercontent.com/60470877/218318383-abb16345-700b-44bd-8f69-6ca5fa5d0f61.png">
- |
+| Manhattan-distance | -f1 | `abs(x1 - x2) + abs(y1 - y2)` | <img width="383" alt="Capture d’écran 2023-02-13 à 00 15 37" src="https://user-images.githubusercontent.com/60470877/218319546-202f119d-b3b0-4a1a-96f5-32b0b1636e5c.png"> |
+| Improved Manhattan-distance | -f2 | `abs(x1 - x2) * abs(x1 - x2) + abs(y1 - y2) * abs(y1 - y2)` | |
+| Euclidean distance | -f4 | `sqrt( abs(x1-x2) * abs(x1-x2) + abs(y1-y2) * abs(y1-y2) )` | <img width="252" alt="Capture d’écran 2023-02-12 à 23 52 49" src="https://user-images.githubusercontent.com/60470877/218318383-abb16345-700b-44bd-8f69-6ca5fa5d0f61.png"> |
 
 ## RUN
     make
