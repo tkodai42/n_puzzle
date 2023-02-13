@@ -12,8 +12,8 @@ mkdir -p result
 make -j8 
 
 python ./tester/gen.py $NUM > ./$RESULT_DIR/test_file
-./n_puzzle -f5 -v -o ./$RESULT_DIR/test_file > ./$RESULT_DIR/result_vec
-./n_puzzle -f5 -v    ./$RESULT_DIR/test_file > ./$RESULT_DIR/result_set
+./n_puzzle  -v -o ./$RESULT_DIR/test_file > ./$RESULT_DIR/result_vec
+./n_puzzle  -v    ./$RESULT_DIR/test_file > ./$RESULT_DIR/result_set
 
 echo "=== USE CLOSED SET ==="
 tail -n 5 ./$RESULT_DIR/result_set
