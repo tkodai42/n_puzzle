@@ -93,18 +93,7 @@ func generateMap() {
 	arrayMap[coordToIdx(x, y)] = 0
 }
 
-func generateRandomMap() {
-	randomMap := make([]int, size * size)
-	for v, i := range arrayMap {
-		randomMap[i] = v
-	}
-
-	rand.Seed(time.Now().Unix())
-	for i := size * size - 1; i > 0; i-- {
-		j := rand.Intn(i + 1)
-		randomMap[i], randomMap[j] = randomMap[j], randomMap[i]
-	}
-
+func checkSolvable(randomMap []int) (bool) {
 	copyMap := make([]int, size * size)
 	for v, i := range randomMap {
 		copyMap[i] = v
@@ -138,9 +127,23 @@ func generateRandomMap() {
 			dy = int(math.Abs(float64(dy - y)))
 		}
 	}
-	
+	return (dx + dy) % 2 == cntSwap % 2
+}
+
+func generateRandomMap() {
+	randomMap := make([]int, size * size)
+	for v, i := range arrayMap {
+		randomMap[i] = v
+	}
+
+	rand.Seed(time.Now().Unix())
+	for i := size * size - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		randomMap[i], randomMap[j] = randomMap[j], randomMap[i]
+	}
+
+	mapState := checkSolvable(randomMap)
 	arrayMap = randomMap
-	mapState := (dx + dy) % 2 == cntSwap % 2
 
 	if mapState != solvable {
 		if arrayMap[0] != 0 && arrayMap[1] != 0 {
