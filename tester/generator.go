@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
 	"math/rand"
 	"os"
 	"strconv"
@@ -60,6 +61,13 @@ func shuffleMap() {
 		swapCoords(n, swp)
 		n = swp
 	}
+	if !solvable {
+		if arrayMap[0] != 0 && arrayMap[1] != 0 {
+			swapCoords(0, 1)
+		} else {
+			swapCoords(size, size + 1)
+		}
+	}
 }
 
 func generateMap() {
@@ -83,7 +91,58 @@ func generateMap() {
 		y += dy
 	}
 	arrayMap[coordToIdx(x, y)] = 0
-	if !solvable {
+}
+
+func generateRandomMap() {
+	randomMap := make([]int, size * size)
+	for v, i := range arrayMap {
+		randomMap[i] = v
+	}
+
+	rand.Seed(time.Now().Unix())
+	for i := size * size - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		randomMap[i], randomMap[j] = randomMap[j], randomMap[i]
+	}
+
+	copyMap := make([]int, size * size)
+	for v, i := range randomMap {
+		copyMap[i] = v
+	}
+
+	cntSwap := 0
+	for n := 0; n < size * size; n++ {
+		if arrayMap[n] == copyMap[n] {
+			continue
+		}
+		for i := n + 1; i < size * size; i++ {
+			if arrayMap[n] == copyMap[i] {
+				copyMap[n], copyMap[i] = copyMap[i], copyMap[n]
+				cntSwap++;
+				break
+			}
+		}
+	}
+
+	dx := 0
+	dy := 0
+	for _, i := range randomMap {
+		if randomMap[i] == 0 {
+			x, y := idxToCoord(i)
+			dx = int(math.Abs(float64(dx - x)))
+			dy = int(math.Abs(float64(dy - y)))
+		}
+		if arrayMap[i] == 0 {
+			x, y := idxToCoord(i)
+			dx = int(math.Abs(float64(dx - x)))
+			dy = int(math.Abs(float64(dy - y)))
+		}
+	}
+	
+	arrayMap = randomMap
+	mapState := (dx + dy) % 2 == cntSwap % 2
+
+	if mapState != solvable {
 		if arrayMap[0] != 0 && arrayMap[1] != 0 {
 			swapCoords(0, 1)
 		} else {
@@ -114,7 +173,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	flagSolvable := flag.Bool("s", false, "Generate solvable puzzle")
 	flagUnsolvable := flag.Bool("u", false, "Generate unsolvable puzzle")
-	shuffleTimes := flag.Int("t", 4242, "Specify shuffling times")
+	shuffleTimes := flag.Int("t", 0, "Specify shuffling times")
 	flag.Parse()
 	args := flag.Args()
 	var err error
@@ -141,6 +200,10 @@ func main() {
 	}
 
 	generateMap()
-	shuffleMap()
+	if (iterations != 0) {
+		shuffleMap()
+	} else {
+		generateRandomMap()
+	}
 	printMap()
 }
