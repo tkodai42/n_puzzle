@@ -54,7 +54,7 @@ run:	$(NAME) $(TESTER)
 	./$(NAME) map/test_maps/$(TEST_SIZE).map
 
 define F2
-   @./$(TESTER) $(1) > map/test_maps/$(1).map
+   @./$(TESTER) -s $(1) > map/test_maps/$(1).map
    @echo --- generate map/test_map/$(1).map ---
 
 endef
