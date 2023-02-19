@@ -49,9 +49,9 @@
 
 | algorithm | option | calculation | detail |
 | --- | --- | --- | --- | 
-| A* search algorithm  |  | `f(n) = g(n) + h(n)` |  |
-| Greedy search | -g | `f(n) = h(n)` | |
-| Uniform cost search | -u | `f(n) = g(n)` |  |
+| A* search algorithm  |  | `f(n) = g(n) + h(n)` | consider both cost and heuristic |
+| Greedy search | -g | `f(n) = h(n)` | only consider heuristic |
+| Uniform cost search | -u | `f(n) = g(n)` | only consider cost |
 
 ## RUN
     make
